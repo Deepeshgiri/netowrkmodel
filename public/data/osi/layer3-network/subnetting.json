@@ -1,0 +1,36 @@
+{
+  "id": "subnetting",
+  "title": "Subnetting & CIDR",
+  "shortName": "Subnetting",
+  "type": "concept",
+  "osiLayer": 3,
+  "category": "ip_addressing",
+  "description": "Dividing an IP address space into smaller networks using subnet masks.",
+  "fullExplanation": "CIDR (Classless Inter-Domain Routing) replaced classful networking in 1993. A prefix like 192.168.1.0/24 means the first 24 bits identify the network, the remaining 8 bits identify hosts. Subnetting borrows bits from the host portion to create more networks with fewer hosts each. VLSM (Variable Length Subnet Masking) allows different subnet sizes within the same network.",
+  "cidrTable": [
+    { "prefix": "/8",  "mask": "255.0.0.0",       "hosts": "16,777,214", "networks": "1",   "use": "Class A / Large ISP" },
+    { "prefix": "/16", "mask": "255.255.0.0",     "hosts": "65,534",     "networks": "256", "use": "Class B / Large org" },
+    { "prefix": "/24", "mask": "255.255.255.0",   "hosts": "254",        "networks": "256", "use": "Class C / Small LAN" },
+    { "prefix": "/25", "mask": "255.255.255.128", "hosts": "126",        "networks": "2",   "use": "Split /24 in half" },
+    { "prefix": "/26", "mask": "255.255.255.192", "hosts": "62",         "networks": "4",   "use": "Small department" },
+    { "prefix": "/27", "mask": "255.255.255.224", "hosts": "30",         "networks": "8",   "use": "Small team" },
+    { "prefix": "/28", "mask": "255.255.255.240", "hosts": "14",         "networks": "16",  "use": "Very small segment" },
+    { "prefix": "/29", "mask": "255.255.255.248", "hosts": "6",          "networks": "32",  "use": "Small office" },
+    { "prefix": "/30", "mask": "255.255.255.252", "hosts": "2",          "networks": "64",  "use": "Point-to-point links" },
+    { "prefix": "/31", "mask": "255.255.255.254", "hosts": "2",          "networks": "128", "use": "P2P (RFC 3021, no broadcast)" },
+    { "prefix": "/32", "mask": "255.255.255.255", "hosts": "1",          "networks": "256", "use": "Host route / loopback" }
+  ],
+  "keyFacts": [
+    "Usable hosts = 2^(host bits) - 2 (subtract network and broadcast)",
+    "Network address: all host bits = 0",
+    "Broadcast address: all host bits = 1",
+    "CIDR replaced classful A/B/C in 1993",
+    "VLSM: use different prefix lengths in same network",
+    "Supernetting: combine multiple networks into one larger prefix",
+    "Route summarization reduces BGP/OSPF table size"
+  ],
+  "children": ["cidr","vlsm","ipv4-addressing","nat"],
+  "parent": "layer3-network",
+  "relatedConcepts": ["ipv4","nat","routing","cidr"],
+  "visualization": { "color": "#00d4ff", "icon": "✂️", "nodeType": "expandable" }
+}

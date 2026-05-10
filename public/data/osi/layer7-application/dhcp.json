@@ -1,0 +1,58 @@
+{
+  "id": "dhcp",
+  "title": "Dynamic Host Configuration Protocol",
+  "shortName": "DHCP",
+  "type": "protocol",
+  "osiLayer": 7,
+  "category": "application_protocol",
+  "port": 67,
+  "transport": ["UDP"],
+  "description": "Automatically assigns IP addresses and network configuration to devices.",
+  "fullExplanation": "DHCP automates network configuration. When a device connects to a network, it broadcasts a DHCP Discover message. A DHCP server responds with an Offer (available IP address). The client Requests that IP, and the server Acknowledges (ACK). This is called the DORA process (Discover, Offer, Request, Acknowledge). DHCP also provides subnet mask, default gateway, DNS servers, and lease time.",
+  "ports": {
+    "usedBy": [
+      { "port": 67, "protocol": "DHCP Server" },
+      { "port": 68, "protocol": "DHCP Client" }
+    ]
+  },
+  "steps": [
+    { "step": 1, "name": "DHCP Discover", "direction": "Client → Broadcast", "description": "Client broadcasts 'I need an IP address' (source 0.0.0.0, dest 255.255.255.255)" },
+    { "step": 2, "name": "DHCP Offer", "direction": "Server → Client", "description": "Server offers an available IP address and configuration" },
+    { "step": 3, "name": "DHCP Request", "direction": "Client → Broadcast", "description": "Client requests the offered IP (broadcasts to inform other servers)" },
+    { "step": 4, "name": "DHCP Acknowledge", "direction": "Server → Client", "description": "Server confirms IP assignment, provides lease time" }
+  ],
+  "providedInfo": [
+    "IP Address",
+    "Subnet Mask",
+    "Default Gateway (Router)",
+    "DNS Server addresses",
+    "Lease Time (how long IP is valid)",
+    "Domain Name",
+    "NTP Server (time sync)",
+    "TFTP Server (for PXE boot)"
+  ],
+  "keyFacts": [
+    "DORA process: Discover, Offer, Request, Acknowledge",
+    "Uses UDP ports 67 (server) and 68 (client)",
+    "Lease time typically 24 hours to 7 days",
+    "Client must renew lease before expiration",
+    "DHCP Relay forwards DHCP across subnets",
+    "Static IP reservations based on MAC address",
+    "DHCP Snooping prevents rogue DHCP servers"
+  ],
+  "leaseProcess": [
+    { "time": "0%", "action": "IP assigned, lease starts" },
+    { "time": "50%", "action": "Client tries to renew with same server" },
+    { "time": "87.5%", "action": "If renewal failed, client broadcasts renewal request" },
+    { "time": "100%", "action": "Lease expires, client must start DORA again" }
+  ],
+  "children": [],
+  "parent": "layer7-application",
+  "dependsOn": ["udp", "ipv4"],
+  "relatedConcepts": ["ip-addressing", "subnetting", "dns"],
+  "cybersecurity": {
+    "attacks": ["rogue-dhcp-server", "dhcp-starvation"],
+    "defenses": ["dhcp-snooping", "port-security"]
+  },
+  "visualization": { "color": "#00ff88", "icon": "🔧", "nodeType": "leaf" }
+}

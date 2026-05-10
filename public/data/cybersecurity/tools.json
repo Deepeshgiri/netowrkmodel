@@ -1,0 +1,16 @@
+{
+  "id": "tools",
+  "title": "Security Tools",
+  "type": "category",
+  "category": "cybersecurity",
+  "description": "Essential tools for network analysis, security testing, and monitoring",
+  "fullExplanation": "Security tools help network administrators and security professionals analyze traffic, detect vulnerabilities, and monitor for threats. These tools are essential for both offensive security testing and defensive monitoring.",
+  "children": ["wireshark", "nmap"],
+  "keyFacts": [
+    "Wireshark captures and analyzes network packets in real-time",
+    "Nmap scans networks to discover hosts and services",
+    "Tools can be used for both security testing and attacks",
+    "Understanding tools helps both attackers and defenders"
+  ],
+  "visualization": { "color": "#ffcc00", "icon": "🛠️", "nodeType": "expandable" }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "syn-flood",
+  "title": "SYN Flood Attack",
+  "shortName": "SYN Flood",
+  "type": "attack",
+  "osiLayer": 4,
+  "category": "denial_of_service",
+  "severity": "critical",
+  "description": "Exhausting server connection table by sending thousands of SYN packets without completing the handshake.",
+  "fullExplanation": "In a normal TCP handshake, the server allocates resources (a TCB — Transmission Control Block) when it receives a SYN and sends a SYN-ACK. It waits for the final ACK. In a SYN flood, the attacker sends thousands of SYN packets with spoofed source IPs. The server sends SYN-ACKs to non-existent hosts and keeps half-open connections in its backlog queue. When the queue fills up (default 128-1024 entries), legitimate connections are refused.",
+  "attackSteps": [
+    { "step": 1, "action": "Attacker sends SYN with spoofed source IP", "effect": "Server allocates TCB, sends SYN-ACK to spoofed IP" },
+    { "step": 2, "action": "Spoofed IP never sends ACK",                "effect": "Half-open connection sits in backlog for 75 seconds" },
+    { "step": 3, "action": "Repeat thousands of times per second",      "effect": "Backlog queue fills up completely" },
+    { "step": 4, "action": "Legitimate SYN arrives",                    "effect": "Server drops it — queue full. Service unavailable." }
+  ],
+  "tools": ["hping3","scapy","metasploit","LOIC","botnets"],
+  "keyFacts": [
+    "Default backlog queue: 128-1024 half-open connections",
+    "Half-open connection timeout: 75 seconds",
+    "Spoofed IPs make it hard to block the attacker",
+    "SYN cookies completely eliminate the vulnerability",
+    "Modern servers handle millions of SYNs/sec with SYN cookies",
+    "Amplified via botnets for massive scale DDoS"
+  ],
+  "defenses": [
+    { "name": "SYN Cookies",       "description": "Server encodes connection state in the ISN — no TCB allocated until ACK received. Eliminates the vulnerability." },
+    { "name": "Rate Limiting",     "description": "Limit SYN packets per source IP per second at firewall/router." },
+    { "name": "Firewall",          "description": "Stateful firewall tracks half-open connections and limits per source." },
+    { "name": "Ingress Filtering", "description": "ISPs drop packets with spoofed source IPs (BCP38)." },
+    { "name": "DDoS Scrubbing",    "description": "Anycast scrubbing centers absorb and filter attack traffic." },
+    { "name": "Increase Backlog",  "description": "sysctl net.ipv4.tcp_max_syn_backlog=65536 (temporary mitigation)." }
+  ],
+  "parent": "attacks",
+  "relatedConcepts": ["tcp","tcp-handshake","ddos","firewall","rate-limiting"],
+  "visualization": { "color": "#ff3366", "icon": "💥", "nodeType": "expandable" }
+}

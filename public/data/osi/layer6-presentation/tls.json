@@ -1,0 +1,51 @@
+{
+  "id": "tls",
+  "title": "Transport Layer Security",
+  "shortName": "TLS",
+  "type": "protocol",
+  "osiLayer": 6,
+  "tcpIpLayer": "Application",
+  "category": "security_protocol",
+  "port": 443,
+  "description": "Cryptographic protocol providing encrypted, authenticated communication over the internet.",
+  "fullExplanation": "TLS runs on top of TCP and provides three security properties: Confidentiality (data encrypted with AES-256-GCM), Integrity (HMAC or AEAD tag detects tampering), Authentication (X.509 certificates prove server identity). TLS 1.3 simplified the handshake to 1 RTT (vs 2 RTT in TLS 1.2), removed weak algorithms, and mandates forward secrecy via ECDHE key exchange.",
+  "versions": [
+    { "version": "SSL 2.0", "year": 1995, "status": "Broken — never use",    "issues": "Multiple critical vulnerabilities" },
+    { "version": "SSL 3.0", "year": 1996, "status": "Broken — POODLE attack","issues": "CBC padding oracle" },
+    { "version": "TLS 1.0", "year": 1999, "status": "Deprecated (RFC 8996)", "issues": "BEAST attack" },
+    { "version": "TLS 1.1", "year": 2006, "status": "Deprecated (RFC 8996)", "issues": "No forward secrecy" },
+    { "version": "TLS 1.2", "year": 2008, "status": "Still used, acceptable", "issues": "2-RTT handshake, allows weak ciphers" },
+    { "version": "TLS 1.3", "year": 2018, "status": "Current standard",      "issues": "None known" }
+  ],
+  "handshake13": [
+    { "step": 1, "name": "ClientHello",          "direction": "Client → Server", "description": "Supported cipher suites, key share (X25519), TLS version" },
+    { "step": 2, "name": "ServerHello",          "direction": "Server → Client", "description": "Chosen cipher, key share, certificate, Finished MAC" },
+    { "step": 3, "name": "Client Finished",      "direction": "Client → Server", "description": "Verify server cert, send Finished MAC. Keys derived." },
+    { "step": 4, "name": "Application Data",     "direction": "Both",            "description": "Encrypted data flows. 1 RTT total." }
+  ],
+  "cipherSuites": [
+    "TLS_AES_256_GCM_SHA384",
+    "TLS_CHACHA20_POLY1305_SHA256",
+    "TLS_AES_128_GCM_SHA256"
+  ],
+  "keyFacts": [
+    "TLS 1.3: 1-RTT handshake (TLS 1.2 needed 2 RTT)",
+    "ECDHE (X25519) provides forward secrecy",
+    "AES-256-GCM: authenticated encryption (AEAD)",
+    "ChaCha20-Poly1305: faster on mobile without AES hardware",
+    "TLS 1.3 removed: RSA key exchange, CBC mode, MD5/SHA-1",
+    "0-RTT resumption: replay attack risk — use carefully",
+    "Certificate Transparency: all certs must be publicly logged",
+    "HSTS: forces HTTPS for up to 2 years"
+  ],
+  "children": ["certificates","cipher-suites","tls-handshake","hsts","certificate-transparency"],
+  "parent": "layer6-presentation",
+  "dependsOn": ["tcp","x509-certificates","aes","ecdhe"],
+  "usedBy": ["https","smtp-tls","imap-tls","ftps","wss"],
+  "relatedConcepts": ["certificates","aes","rsa","diffie-hellman","hashing"],
+  "cybersecurity": {
+    "attacks": ["tls-stripping","beast","poodle","heartbleed","downgrade-attack","certificate-spoofing"],
+    "defenses": ["hsts","certificate-pinning","hsts-preload","ocsp-stapling","caa-records"]
+  },
+  "visualization": { "color": "#ff3366", "icon": "🔒", "nodeType": "expandable" }
+}

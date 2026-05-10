@@ -1,0 +1,26 @@
+{
+  "id": "layer3-network",
+  "title": "Network Layer",
+  "shortName": "Layer 3",
+  "type": "osi-layer",
+  "osiLayer": 3,
+  "pdu": "Packet",
+  "category": "osi_layer",
+  "description": "Routes packets across networks using logical addressing (IP).",
+  "fullExplanation": "The Network Layer is responsible for routing packets from source to destination across multiple networks. It uses logical addressing (IP addresses) and routing protocols (BGP, OSPF, RIP) to determine the best path. Routers operate at this layer. IPv4 uses 32-bit addresses (4.3 billion), IPv6 uses 128-bit addresses (340 undecillion). This layer handles fragmentation, reassembly, and TTL (Time To Live).",
+  "keyFacts": [
+    "Logical addressing with IP addresses",
+    "Routing between different networks",
+    "IPv4: 32-bit (4.3 billion addresses)",
+    "IPv6: 128-bit (340 undecillion addresses)",
+    "BGP routes internet traffic between ISPs",
+    "OSPF routes within organizations",
+    "TTL prevents infinite routing loops",
+    "Fragmentation splits large packets"
+  ],
+  "devices": ["Router", "Layer 3 Switch", "Firewall (L3)"],
+  "children": ["ipv4", "bgp", "ospf", "subnetting", "icmp"],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer2-datalink", "layer4-transport", "routing"],
+  "visualization": { "color": "#00d4ff", "icon": "🗺️", "nodeType": "expandable" }
+}

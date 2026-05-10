@@ -1,0 +1,42 @@
+{
+  "id": "ssl-stripping",
+  "title": "SSL Stripping Attack",
+  "shortName": "SSL Strip",
+  "type": "attack",
+  "osiLayer": 6,
+  "category": "downgrade_attack",
+  "severity": "high",
+  "description": "Downgrading HTTPS connections to HTTP to intercept encrypted traffic.",
+  "fullExplanation": "SSL Stripping is a MITM attack that downgrades HTTPS to HTTP. The attacker sits between victim and server. When the victim requests http://bank.com, the server redirects to https://bank.com. The attacker intercepts this redirect, maintains HTTPS with the server, but serves HTTP to the victim. The victim sees http:// in the address bar but may not notice. All traffic is now plaintext to the attacker.",
+  "attackSteps": [
+    { "step": 1, "action": "Position as MITM", "description": "Use ARP spoofing or rogue WiFi to intercept traffic" },
+    { "step": 2, "action": "Victim requests HTTP", "description": "User types bank.com (defaults to http://)" },
+    { "step": 3, "action": "Server sends HTTPS redirect", "description": "Server responds: 'Redirect to https://bank.com'" },
+    { "step": 4, "action": "Attacker strips SSL", "description": "Attacker intercepts redirect, keeps HTTPS with server, sends HTTP to victim" },
+    { "step": 5, "action": "Victim uses HTTP", "description": "Victim's browser shows http://, sends plaintext credentials" },
+    { "step": 6, "action": "Attacker forwards as HTTPS", "description": "Attacker encrypts and forwards to server, server thinks everything is normal" }
+  ],
+  "tools": ["sslstrip", "mitmproxy", "Bettercap", "Ettercap"],
+  "keyFacts": [
+    "Only works if user initially requests HTTP (not HTTPS)",
+    "Victim sees http:// in address bar (but may not notice)",
+    "HSTS prevents this attack completely",
+    "Browser warnings about 'Not Secure' help users notice",
+    "Requires MITM position (same network)",
+    "Modern browsers increasingly default to HTTPS",
+    "Certificate pinning doesn't help (no certificate involved)"
+  ],
+  "requirements": [
+    "MITM position on network",
+    "Victim must initially request HTTP (not HTTPS)",
+    "No HSTS policy on target domain",
+    "Victim doesn't notice http:// in address bar"
+  ],
+  "children": [],
+  "parent": "attacks",
+  "relatedConcepts": ["mitm", "https", "tls", "hsts"],
+  "cybersecurity": {
+    "defenses": ["hsts", "https-everywhere", "browser-warnings"]
+  },
+  "visualization": { "color": "#ff3366", "icon": "🔓", "nodeType": "leaf" }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "layer1-physical",
+  "title": "Physical Layer",
+  "shortName": "Layer 1",
+  "type": "osi-layer",
+  "osiLayer": 1,
+  "pdu": "Bits",
+  "category": "osi_layer",
+  "description": "Transmits raw bits over physical media using electrical, optical, or radio signals.",
+  "fullExplanation": "The Physical Layer is the lowest layer of the OSI model. It deals with the actual physical transmission of raw binary data (0s and 1s) over a physical medium. It defines electrical specifications (voltage levels), optical specifications (light wavelengths), mechanical specifications (connector shapes), and functional specifications (what each pin does). It does NOT understand what the bits mean — that is the job of higher layers.",
+  "keyFacts": [
+    "Transmits raw bits — no meaning, just 0s and 1s",
+    "Defines voltage levels, timing, connector types",
+    "Cat6 cable: 10Gbps up to 55m",
+    "Single-mode fiber: 100km without repeaters",
+    "WiFi 6 uses 1024-QAM modulation for max throughput",
+    "Signal travels at ~2/3 speed of light in copper"
+  ],
+  "devices": ["Hub","Repeater","Modem","NIC (physical part)","Cable","Antenna"],
+  "children": ["signals","cables","fiber","wireless","modulation","repeaters","hubs"],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer2-datalink","ethernet-cable","fiber-optics","wifi-hardware"],
+  "attacks": ["jamming","cable-tapping","signal-interference"],
+  "visualization": { "color": "#ff6b35", "icon": "⚡", "nodeType": "expandable" }
+}

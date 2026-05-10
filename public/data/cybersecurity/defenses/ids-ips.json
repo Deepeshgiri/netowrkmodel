@@ -1,0 +1,69 @@
+{
+  "id": "ids-ips",
+  "title": "Intrusion Detection & Prevention Systems",
+  "shortName": "IDS/IPS",
+  "type": "defense",
+  "category": "network_security",
+  "description": "Systems that monitor network traffic for malicious activity and can block attacks.",
+  "fullExplanation": "IDS (Intrusion Detection System) monitors network traffic and alerts on suspicious activity. IPS (Intrusion Prevention System) goes further — it can actively block attacks. Both use signature-based detection (known attack patterns) and anomaly-based detection (deviations from normal behavior). IDS is passive (monitor only), IPS is inline (can drop packets).",
+  "types": [
+    {
+      "name": "Network IDS (NIDS)",
+      "description": "Monitors all traffic on network segment. Placed on network tap or SPAN port.",
+      "examples": ["Snort", "Suricata", "Zeek (Bro)"]
+    },
+    {
+      "name": "Network IPS (NIPS)",
+      "description": "Inline device that can block malicious traffic. All traffic flows through it.",
+      "examples": ["Snort (inline mode)", "Suricata", "Cisco Firepower"]
+    },
+    {
+      "name": "Host IDS (HIDS)",
+      "description": "Runs on individual hosts, monitors system calls, logs, file changes.",
+      "examples": ["OSSEC", "Wazuh", "Tripwire"]
+    },
+    {
+      "name": "Host IPS (HIPS)",
+      "description": "Runs on hosts, can block malicious processes or network connections.",
+      "examples": ["Windows Defender", "SELinux", "AppArmor"]
+    }
+  ],
+  "detectionMethods": [
+    {
+      "name": "Signature-Based",
+      "description": "Matches traffic against database of known attack patterns",
+      "pros": "Fast, accurate for known attacks",
+      "cons": "Cannot detect zero-day attacks"
+    },
+    {
+      "name": "Anomaly-Based",
+      "description": "Learns normal behavior, alerts on deviations",
+      "pros": "Can detect unknown attacks",
+      "cons": "High false positive rate"
+    },
+    {
+      "name": "Stateful Protocol Analysis",
+      "description": "Understands protocols, detects violations",
+      "pros": "Detects protocol-level attacks",
+      "cons": "Resource intensive"
+    }
+  ],
+  "keyFacts": [
+    "IDS alerts, IPS blocks — IPS is active defense",
+    "Signature-based detection requires constant updates",
+    "Anomaly detection has high false positives initially",
+    "IPS can cause network latency (inline processing)",
+    "Snort is the most popular open-source IDS/IPS",
+    "SIEM systems aggregate IDS/IPS alerts for analysis"
+  ],
+  "deployment": [
+    { "location": "Network Perimeter", "purpose": "Detect attacks from internet" },
+    { "location": "Internal Network", "purpose": "Detect lateral movement, insider threats" },
+    { "location": "DMZ", "purpose": "Protect public-facing servers" },
+    { "location": "Critical Servers", "purpose": "Host-based IDS for sensitive systems" }
+  ],
+  "tools": ["Snort", "Suricata", "Zeek", "OSSEC", "Wazuh", "Cisco Firepower", "Palo Alto Networks"],
+  "parent": "defenses",
+  "relatedConcepts": ["firewall", "siem", "network-monitoring", "threat-detection"],
+  "visualization": { "color": "#00ff88", "icon": "🛡️", "nodeType": "leaf" }
+}

@@ -1,0 +1,174 @@
+{
+  "id": "internet",
+  "title": "The Internet - Complete Overview",
+  "shortName": "Internet",
+  "type": "wrapper",
+  "category": "comprehensive",
+  "description": "Complete breakdown of how the internet works - from physical cables to web applications.",
+  "fullExplanation": "The Internet is a global network of interconnected computer networks. It's built on layers of protocols, hardware, and software working together. This comprehensive view shows every component: the OSI and TCP/IP models, all protocols at each layer, the hardware that makes it work, security threats and defenses, and the tools used to analyze and protect networks.",
+  "sections": [
+    {
+      "id": "models",
+      "title": "Network Models",
+      "icon": "📚",
+      "color": "#8b5cf6",
+      "description": "Conceptual frameworks for understanding network communication",
+      "items": [
+        {
+          "id": "osi-model",
+          "name": "OSI Model (7 Layers)",
+          "description": "Reference model with 7 layers: Application, Presentation, Session, Transport, Network, Data Link, Physical"
+        },
+        {
+          "id": "tcp-ip-model",
+          "name": "TCP/IP Model (4 Layers)",
+          "description": "Practical model used on the internet: Application, Transport, Internet, Network Access"
+        }
+      ]
+    },
+    {
+      "id": "layer7",
+      "title": "Layer 7 - Application",
+      "icon": "🌐",
+      "color": "#00ff88",
+      "description": "End-user protocols and services",
+      "items": [
+        { "id": "http", "name": "HTTP", "description": "Web browsing (port 80)" },
+        { "id": "https", "name": "HTTPS", "description": "Secure web browsing (port 443)" },
+        { "id": "dns", "name": "DNS", "description": "Domain name resolution (port 53)" },
+        { "id": "ssh", "name": "SSH", "description": "Secure remote access (port 22)" },
+        { "id": "dhcp", "name": "DHCP", "description": "Automatic IP configuration (port 67/68)" }
+      ]
+    },
+    {
+      "id": "layer6",
+      "title": "Layer 6 - Presentation",
+      "icon": "🔐",
+      "color": "#ff3366",
+      "description": "Data encryption and format conversion",
+      "items": [
+        { "id": "tls", "name": "TLS/SSL", "description": "Encryption for HTTPS, email, VPN" }
+      ]
+    },
+    {
+      "id": "layer5",
+      "title": "Layer 5 - Session",
+      "icon": "🔗",
+      "color": "#8b5cf6",
+      "description": "Session management and control",
+      "items": [
+        { "id": "layer5-session", "name": "Session Layer", "description": "NetBIOS, PPTP, RPC, SMB sessions" }
+      ]
+    },
+    {
+      "id": "layer4",
+      "title": "Layer 4 - Transport",
+      "icon": "📦",
+      "color": "#00ff88",
+      "description": "End-to-end communication and reliability",
+      "items": [
+        { "id": "tcp", "name": "TCP", "description": "Reliable, connection-oriented (3-way handshake)" },
+        { "id": "udp", "name": "UDP", "description": "Fast, connectionless (no handshake)" },
+        { "id": "tcp-handshake", "name": "TCP Handshake", "description": "SYN → SYN-ACK → ACK connection establishment" }
+      ]
+    },
+    {
+      "id": "layer3",
+      "title": "Layer 3 - Network",
+      "icon": "🗺️",
+      "color": "#00d4ff",
+      "description": "Routing and logical addressing",
+      "items": [
+        { "id": "ipv4", "name": "IPv4", "description": "32-bit IP addresses (4.3 billion)" },
+        { "id": "icmp", "name": "ICMP", "description": "Ping, traceroute, error messages" },
+        { "id": "bgp", "name": "BGP", "description": "Internet routing between ISPs" },
+        { "id": "ospf", "name": "OSPF", "description": "Internal routing within organizations" },
+        { "id": "subnetting", "name": "Subnetting", "description": "Dividing networks with CIDR notation" }
+      ]
+    },
+    {
+      "id": "layer2",
+      "title": "Layer 2 - Data Link",
+      "icon": "🔗",
+      "color": "#ffcc00",
+      "description": "MAC addressing and local network communication",
+      "items": [
+        { "id": "ethernet", "name": "Ethernet", "description": "Wired LAN standard with MAC addresses" },
+        { "id": "arp", "name": "ARP", "description": "Resolves IP addresses to MAC addresses" }
+      ]
+    },
+    {
+      "id": "layer1",
+      "title": "Layer 1 - Physical",
+      "icon": "⚡",
+      "color": "#ff6b35",
+      "description": "Physical transmission of bits",
+      "items": [
+        { "id": "cables", "name": "Network Cables", "description": "Cat5e, Cat6, Cat6a, Cat7, Cat8" },
+        { "id": "wireless", "name": "Wireless", "description": "WiFi standards: 802.11n/ac/ax/be" }
+      ]
+    },
+    {
+      "id": "hardware",
+      "title": "Network Hardware",
+      "icon": "🔲",
+      "color": "#ffcc00",
+      "description": "Physical devices that make networks work",
+      "items": [
+        { "id": "nic", "name": "Network Interface Card", "description": "Connects computer to network" }
+      ]
+    },
+    {
+      "id": "security-attacks",
+      "title": "Security - Attack Techniques",
+      "icon": "⚔️",
+      "color": "#ff3366",
+      "description": "How attackers compromise networks and systems",
+      "items": [
+        { "id": "arp-spoofing", "name": "ARP Spoofing", "description": "Poison ARP cache for MITM" },
+        { "id": "syn-flood", "name": "SYN Flood", "description": "DDoS by exhausting TCP connections" },
+        { "id": "dns-poisoning", "name": "DNS Poisoning", "description": "Redirect users to fake sites" },
+        { "id": "xss", "name": "Cross-Site Scripting", "description": "Inject malicious JavaScript" },
+        { "id": "csrf", "name": "CSRF", "description": "Trick browser into unwanted requests" },
+        { "id": "mitm", "name": "Man-in-the-Middle", "description": "Intercept communication between parties" },
+        { "id": "ssl-stripping", "name": "SSL Stripping", "description": "Downgrade HTTPS to HTTP" }
+      ]
+    },
+    {
+      "id": "security-defenses",
+      "title": "Security - Defensive Measures",
+      "icon": "🛡️",
+      "color": "#00ff88",
+      "description": "How to protect networks and systems",
+      "items": [
+        { "id": "firewall", "name": "Firewall", "description": "Filter traffic based on rules" },
+        { "id": "zero-trust", "name": "Zero Trust", "description": "Never trust, always verify" },
+        { "id": "ids-ips", "name": "IDS/IPS", "description": "Detect and prevent intrusions" },
+        { "id": "vpn", "name": "VPN", "description": "Encrypted tunnel for privacy" },
+        { "id": "hsts", "name": "HSTS", "description": "Force HTTPS, prevent SSL stripping" }
+      ]
+    },
+    {
+      "id": "security-tools",
+      "title": "Security - Analysis Tools",
+      "icon": "🛠️",
+      "color": "#ffcc00",
+      "description": "Tools for network analysis and security testing",
+      "items": [
+        { "id": "wireshark", "name": "Wireshark", "description": "Packet capture and analysis" },
+        { "id": "nmap", "name": "Nmap", "description": "Network scanning and enumeration" }
+      ]
+    }
+  ],
+  "keyFacts": [
+    "The Internet is a network of networks - billions of devices connected globally",
+    "TCP/IP is the protocol suite that powers the internet",
+    "Every internet packet travels through multiple routers to reach its destination",
+    "DNS translates human-readable names (google.com) to IP addresses",
+    "HTTPS encrypts web traffic to protect privacy and security",
+    "Firewalls and IDS/IPS protect networks from attacks",
+    "The internet has no central control - it's decentralized",
+    "IPv4 addresses are running out - IPv6 provides 340 undecillion addresses"
+  ],
+  "visualization": { "color": "#00d4ff", "icon": "🌐", "nodeType": "expandable" }
+}

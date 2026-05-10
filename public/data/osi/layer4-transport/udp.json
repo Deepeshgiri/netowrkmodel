@@ -1,0 +1,52 @@
+{
+  "id": "udp",
+  "title": "User Datagram Protocol",
+  "shortName": "UDP",
+  "type": "protocol",
+  "osiLayer": 4,
+  "tcpIpLayer": "Transport",
+  "category": "transport_protocol",
+  "description": "Connectionless, fast, unreliable transport protocol with minimal overhead.",
+  "fullExplanation": "UDP sends datagrams without establishing a connection, without guaranteeing delivery, without ordering, and without retransmission. Its header is only 8 bytes. This makes it extremely fast and suitable for applications where speed matters more than reliability: DNS lookups, VoIP, video streaming, online gaming, and DHCP. Applications that need reliability on top of UDP implement it themselves (e.g., QUIC, RTP with RTCP).",
+  "header": {
+    "size": "8 bytes (fixed)",
+    "fields": [
+      { "name": "Source Port",      "bits": 16, "description": "Sender's port (optional, 0 if unused)", "example": "54321" },
+      { "name": "Destination Port", "bits": 16, "description": "Receiver's port",                       "example": "53" },
+      { "name": "Length",           "bits": 16, "description": "Length of UDP header + data in bytes",  "example": "28" },
+      { "name": "Checksum",         "bits": 16, "description": "Optional error detection",              "example": "0xA3F2" }
+    ]
+  },
+  "ports": {
+    "usedBy": [
+      { "port": 53,  "protocol": "DNS" },
+      { "port": 67,  "protocol": "DHCP Server" },
+      { "port": 68,  "protocol": "DHCP Client" },
+      { "port": 123, "protocol": "NTP" },
+      { "port": 161, "protocol": "SNMP" },
+      { "port": 514, "protocol": "Syslog" },
+      { "port": 500, "protocol": "IKE (IPSec)" },
+      { "port": 4500,"protocol": "IPSec NAT-T" }
+    ]
+  },
+  "keyFacts": [
+    "Header is only 8 bytes vs TCP's 20+ bytes",
+    "No connection setup — data sent immediately",
+    "No retransmission — lost packets are gone",
+    "No ordering — packets may arrive out of order",
+    "DNS uses UDP port 53 (TCP for responses >512 bytes)",
+    "UDP amplification: small request → large response (DDoS vector)",
+    "QUIC builds reliability on top of UDP",
+    "RTP (Real-time Transport Protocol) uses UDP for VoIP/video"
+  ],
+  "children": ["quic","rtp","dns","dhcp"],
+  "parent": "layer4-transport",
+  "usedBy": ["dns","dhcp","ntp","snmp","voip","gaming","quic"],
+  "dependsOn": ["ip"],
+  "relatedConcepts": ["tcp","quic","ports"],
+  "cybersecurity": {
+    "attacks": ["udp-flood","dns-amplification","ntp-amplification","udp-port-scan"],
+    "defenses": ["rate-limiting","ingress-filtering","firewall"]
+  },
+  "visualization": { "color": "#00ddaa", "icon": "💨", "nodeType": "expandable" }
+}

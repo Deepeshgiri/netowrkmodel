@@ -1,0 +1,24 @@
+{
+  "id": "layer6-presentation",
+  "title": "Presentation Layer",
+  "shortName": "Layer 6",
+  "type": "osi-layer",
+  "osiLayer": 6,
+  "pdu": "Data",
+  "category": "osi_layer",
+  "description": "Translates data formats, handles encryption, and compression.",
+  "fullExplanation": "The Presentation Layer acts as a translator between the application and the network. It handles data format conversion (ASCII, EBCDIC, JPEG, MP3), encryption/decryption (TLS/SSL), and compression/decompression. This ensures that data sent from one system can be read by another, even if they use different data representations.",
+  "keyFacts": [
+    "Data translation and format conversion",
+    "Encryption and decryption (TLS/SSL)",
+    "Data compression and decompression",
+    "Character encoding (ASCII, Unicode)",
+    "Image formats (JPEG, PNG, GIF)",
+    "Video/audio codecs (MP4, MP3)"
+  ],
+  "devices": ["Gateway", "Encryption Device"],
+  "children": ["tls"],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer7-application", "layer5-session", "encryption"],
+  "visualization": { "color": "#ff3366", "icon": "🔐", "nodeType": "expandable" }
+}

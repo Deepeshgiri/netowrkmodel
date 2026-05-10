@@ -1,0 +1,95 @@
+{
+  "id": "vpn",
+  "title": "Virtual Private Network (VPN)",
+  "shortName": "VPN",
+  "type": "defense",
+  "category": "encryption",
+  "description": "Encrypted tunnel that protects data in transit and hides your IP address.",
+  "fullExplanation": "A VPN creates an encrypted tunnel between your device and a VPN server. All your internet traffic flows through this tunnel, protecting it from eavesdropping. Your ISP, network admin, and attackers on the same network cannot see what you're doing. The destination website sees the VPN server's IP, not yours. VPNs are essential for remote work, public WiFi, and bypassing censorship.",
+  "types": [
+    {
+      "name": "Remote Access VPN",
+      "description": "Individual users connect to corporate network from home/travel",
+      "protocols": ["OpenVPN", "WireGuard", "IKEv2/IPsec"],
+      "useCase": "Remote workers accessing company resources"
+    },
+    {
+      "name": "Site-to-Site VPN",
+      "description": "Connect two entire networks (e.g., branch offices)",
+      "protocols": ["IPsec", "MPLS VPN"],
+      "useCase": "Connecting corporate offices securely"
+    },
+    {
+      "name": "SSL/TLS VPN",
+      "description": "Browser-based VPN, no client software needed",
+      "protocols": ["SSL/TLS"],
+      "useCase": "Quick access to web applications"
+    },
+    {
+      "name": "Consumer VPN",
+      "description": "Commercial VPN services for privacy and geo-unblocking",
+      "protocols": ["OpenVPN", "WireGuard"],
+      "useCase": "Privacy, bypass censorship, streaming"
+    }
+  ],
+  "protocols": [
+    {
+      "name": "OpenVPN",
+      "security": "High",
+      "speed": "Medium",
+      "description": "Open-source, highly configurable, uses SSL/TLS"
+    },
+    {
+      "name": "WireGuard",
+      "security": "High",
+      "speed": "Very High",
+      "description": "Modern, fast, simple codebase, built into Linux kernel"
+    },
+    {
+      "name": "IPsec",
+      "security": "High",
+      "speed": "High",
+      "description": "Industry standard, complex configuration, Layer 3"
+    },
+    {
+      "name": "L2TP/IPsec",
+      "security": "Medium",
+      "speed": "Medium",
+      "description": "Combines L2TP tunneling with IPsec encryption"
+    },
+    {
+      "name": "PPTP",
+      "security": "Low (deprecated)",
+      "speed": "High",
+      "description": "Old, fast, but insecure — do not use"
+    }
+  ],
+  "keyFacts": [
+    "VPN encrypts all traffic, not just HTTPS",
+    "Protects against MITM attacks on public WiFi",
+    "VPN provider can see your traffic — choose trustworthy provider",
+    "WireGuard is faster than OpenVPN (modern cryptography)",
+    "Split tunneling routes some traffic through VPN, some direct",
+    "Kill switch blocks internet if VPN disconnects",
+    "VPN adds latency — typically 10-50ms"
+  ],
+  "benefits": [
+    "Encrypts all internet traffic",
+    "Hides IP address from websites",
+    "Protects on public WiFi",
+    "Bypasses geo-restrictions",
+    "Prevents ISP tracking",
+    "Secures remote access to corporate network"
+  ],
+  "limitations": [
+    "VPN provider can see your traffic",
+    "Adds latency (slower speeds)",
+    "Some websites block VPN IPs",
+    "Not anonymous (VPN knows your real IP)",
+    "Free VPNs often log and sell data",
+    "Does not protect against malware or phishing"
+  ],
+  "parent": "defenses",
+  "relatedConcepts": ["encryption", "tls", "ipsec", "wireguard", "mitm", "public-wifi"],
+  "visualization": { "color": "#00ff88", "icon": "🔒", "nodeType": "leaf" }
+}

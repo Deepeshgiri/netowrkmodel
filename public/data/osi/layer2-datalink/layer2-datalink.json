@@ -1,0 +1,25 @@
+{
+  "id": "layer2-datalink",
+  "title": "Data Link Layer",
+  "shortName": "Layer 2",
+  "type": "osi-layer",
+  "osiLayer": 2,
+  "pdu": "Frame",
+  "category": "osi_layer",
+  "description": "Provides node-to-node data transfer using MAC addresses.",
+  "fullExplanation": "The Data Link Layer provides reliable transfer of data across a physical link. It uses MAC (Media Access Control) addresses to identify devices on the local network. This layer handles framing (adding headers/trailers), error detection (CRC), flow control, and media access control (CSMA/CD for Ethernet). Switches operate at this layer. The layer is divided into two sublayers: LLC (Logical Link Control) and MAC (Media Access Control).",
+  "keyFacts": [
+    "Uses MAC addresses (48-bit hardware addresses)",
+    "Ethernet frames have 14-byte header + 4-byte CRC",
+    "Switches forward frames based on MAC table",
+    "ARP resolves IP addresses to MAC addresses",
+    "VLANs segment networks at Layer 2",
+    "CRC detects transmission errors",
+    "CSMA/CD prevents collisions (old Ethernet)"
+  ],
+  "devices": ["Switch", "Bridge", "NIC", "Access Point"],
+  "children": ["ethernet", "arp"],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer1-physical", "layer3-network", "mac-address"],
+  "visualization": { "color": "#ffcc00", "icon": "🔗", "nodeType": "expandable" }
+}

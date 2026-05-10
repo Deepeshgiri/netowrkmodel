@@ -1,0 +1,53 @@
+{
+  "id": "ssh",
+  "title": "Secure Shell",
+  "shortName": "SSH",
+  "type": "protocol",
+  "osiLayer": 7,
+  "tcpIpLayer": "Application",
+  "category": "application_protocol",
+  "port": 22,
+  "transport": "TCP",
+  "description": "Encrypted protocol for secure remote login, command execution, and file transfer.",
+  "fullExplanation": "SSH replaced Telnet and rsh which sent everything in plaintext. SSH provides encrypted terminal sessions, secure file transfer (SFTP/SCP), and port forwarding (tunneling). The SSH protocol has three layers: Transport Layer (encryption, integrity, compression), User Authentication Layer (password, public key, keyboard-interactive), and Connection Layer (multiplexes multiple channels over one connection).",
+  "authMethods": [
+    { "method": "Password",          "security": "Medium",   "description": "Username + password. Vulnerable to brute force. Disable if possible." },
+    { "method": "Public Key",        "security": "High",     "description": "RSA/ECDSA/Ed25519 key pair. Private key stays on client. Most secure." },
+    { "method": "Certificate",       "security": "High",     "description": "SSH CA signs user/host certificates. Scales better than key pairs." },
+    { "method": "GSSAPI/Kerberos",   "security": "High",     "description": "Single sign-on via Kerberos tickets." },
+    { "method": "Keyboard-Interactive","security": "Medium", "description": "Challenge-response, used for MFA (Google Authenticator)." }
+  ],
+  "keyAlgorithms": {
+    "keyExchange": ["curve25519-sha256","ecdh-sha2-nistp256","diffie-hellman-group14-sha256"],
+    "hostKey":     ["ssh-ed25519","ecdsa-sha2-nistp256","rsa-sha2-512"],
+    "encryption":  ["chacha20-poly1305@openssh.com","aes256-gcm@openssh.com","aes128-ctr"],
+    "mac":         ["hmac-sha2-256","hmac-sha2-512","umac-128@openssh.com"]
+  },
+  "useCases": [
+    { "use": "Remote Shell",    "command": "ssh user@host",                    "description": "Interactive terminal session" },
+    { "use": "SCP",             "command": "scp file user@host:/path",         "description": "Secure copy files" },
+    { "use": "SFTP",            "command": "sftp user@host",                   "description": "Secure FTP subsystem" },
+    { "use": "Local Forward",   "command": "ssh -L 8080:internal:80 user@host","description": "Tunnel local port to remote" },
+    { "use": "Remote Forward",  "command": "ssh -R 8080:localhost:80 user@host","description": "Expose local service remotely" },
+    { "use": "SOCKS Proxy",     "command": "ssh -D 1080 user@host",            "description": "Dynamic SOCKS5 proxy" },
+    { "use": "Jump Host",       "command": "ssh -J jump user@target",          "description": "Proxy through bastion host" }
+  ],
+  "keyFacts": [
+    "SSH-1 is broken — always use SSH-2",
+    "Ed25519 keys: faster and more secure than RSA-2048",
+    "Disable password auth: PasswordAuthentication no in sshd_config",
+    "Fail2ban: auto-ban IPs after failed login attempts",
+    "SSH agent forwarding: use local keys on remote hosts (risk: agent hijacking)",
+    "Known_hosts file: prevents MITM by storing host fingerprints",
+    "Port 22 is heavily scanned — consider changing to non-standard port"
+  ],
+  "children": ["ssh-key-auth","ssh-tunneling","ssh-hardening"],
+  "parent": "layer7-application",
+  "dependsOn": ["tcp","aes","ecdh","ed25519"],
+  "relatedConcepts": ["tls","vpn","sftp","telnet"],
+  "cybersecurity": {
+    "attacks": ["ssh-brute-force","ssh-mitm","agent-hijacking","weak-host-keys"],
+    "defenses": ["public-key-auth","fail2ban","port-knocking","ssh-certificates","mfa"]
+  },
+  "visualization": { "color": "#00ff88", "icon": "🔑", "nodeType": "expandable" }
+}

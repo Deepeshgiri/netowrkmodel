@@ -1,0 +1,46 @@
+{
+  "id": "nic",
+  "title": "Network Interface Card",
+  "shortName": "NIC",
+  "type": "hardware",
+  "category": "network_hardware",
+  "description": "Hardware component that connects a computer to a network, handling physical and data link layer functions.",
+  "fullExplanation": "The NIC is the bridge between software and the physical network. It has a burned-in MAC address, a PHY chip for signal conversion, a DMA engine for direct memory access, and hardware offloading capabilities. Modern NICs offload TCP checksum calculation, segmentation (TSO), and receive-side scaling (RSS) from the CPU — dramatically improving performance.",
+  "components": [
+    { "name": "MAC Controller", "description": "Implements Ethernet framing, CRC generation/checking, MAC address filtering" },
+    { "name": "PHY Chip",       "description": "Physical layer — converts digital signals to/from electrical/optical signals on the wire" },
+    { "name": "DMA Engine",     "description": "Direct Memory Access — writes received packets directly to RAM without CPU involvement" },
+    { "name": "Ring Buffer",    "description": "Circular buffer in RAM for TX (transmit) and RX (receive) packet queues" },
+    { "name": "EEPROM",         "description": "Stores MAC address, firmware, and configuration" },
+    { "name": "PCIe Interface", "description": "Connects NIC to CPU/RAM via PCIe bus for high-speed data transfer" }
+  ],
+  "offloading": [
+    { "feature": "TX Checksum Offload", "description": "NIC calculates TCP/UDP/IP checksums instead of CPU" },
+    { "feature": "TSO (TCP Segmentation Offload)", "description": "NIC splits large TCP buffers into MTU-sized segments" },
+    { "feature": "LRO/GRO (Large Receive Offload)", "description": "NIC coalesces multiple received segments into one large buffer" },
+    { "feature": "RSS (Receive Side Scaling)", "description": "Distributes received packets across multiple CPU cores using hash" },
+    { "feature": "SR-IOV", "description": "Single Root I/O Virtualization — NIC presents multiple virtual NICs to VMs" }
+  ],
+  "packetReceivePath": [
+    "Wire → PHY chip (signal conversion)",
+    "PHY → MAC controller (frame assembly)",
+    "MAC → DMA engine (write to RX ring buffer in RAM)",
+    "DMA → CPU interrupt (IRQ) or NAPI poll",
+    "Kernel NAPI poll → sk_buff allocation",
+    "sk_buff → TCP/IP stack processing",
+    "TCP/IP stack → socket buffer",
+    "Socket buffer → userspace recv() call"
+  ],
+  "keyFacts": [
+    "MAC address burned into EEPROM (can be overridden in software)",
+    "DMA allows NIC to write to RAM without CPU — zero-copy networking",
+    "NAPI (New API) polling reduces interrupt overhead at high packet rates",
+    "10GbE NIC can receive 14.88 million packets/second",
+    "SR-IOV allows VMs to directly access NIC hardware",
+    "Wake-on-LAN (WoL): NIC can power on computer from network"
+  ],
+  "children": ["dma","interrupts","pcie","ring-buffer"],
+  "parent": "hardware",
+  "relatedConcepts": ["dma","pcie","ethernet","mac-addresses","linux-network-stack"],
+  "visualization": { "color": "#ffcc00", "icon": "🔌", "nodeType": "expandable" }
+}

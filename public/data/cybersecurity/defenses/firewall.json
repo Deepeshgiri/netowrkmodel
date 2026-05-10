@@ -1,0 +1,52 @@
+{
+  "id": "firewall",
+  "title": "Firewall",
+  "shortName": "Firewall",
+  "type": "defense",
+  "category": "network_defense",
+  "description": "Network security device that monitors and controls incoming and outgoing traffic based on rules.",
+  "fullExplanation": "A firewall enforces a security policy by inspecting network traffic and allowing or blocking it based on rules. Firewalls have evolved from simple packet filters to stateful inspection engines to next-generation firewalls with deep packet inspection. They are the first line of defense in network security.",
+  "types": [
+    {
+      "name": "Packet Filter",
+      "description": "Inspects IP/port headers only. Stateless — no connection tracking. Fast but limited.",
+      "pros": ["Very fast", "Low resource usage"],
+      "cons": ["No state tracking", "Can't detect fragmentation attacks", "No application awareness"]
+    },
+    {
+      "name": "Stateful Inspection",
+      "description": "Tracks TCP/UDP connection state. Allows return traffic automatically. Most common type.",
+      "pros": ["Tracks connections", "Blocks unsolicited inbound", "Efficient"],
+      "cons": ["No application layer inspection", "State table can be exhausted (DoS)"]
+    },
+    {
+      "name": "Next-Gen Firewall (NGFW)",
+      "description": "Deep packet inspection, application identification, user identity, IPS, SSL inspection.",
+      "pros": ["Application awareness", "User-based policies", "Integrated IPS", "SSL inspection"],
+      "cons": ["Expensive", "SSL inspection creates privacy concerns", "Performance overhead"]
+    },
+    {
+      "name": "Web Application Firewall (WAF)",
+      "description": "Protects HTTP/HTTPS applications from OWASP Top 10 attacks.",
+      "pros": ["Stops SQLi, XSS, CSRF", "Virtual patching", "Bot protection"],
+      "cons": ["HTTP/HTTPS only", "False positives", "Requires tuning"]
+    }
+  ],
+  "keyFacts": [
+    "Default deny: block everything, allow only what's needed",
+    "Stateful firewall tracks 5-tuple: proto+srcIP+srcPort+dstIP+dstPort",
+    "NGFW can identify apps regardless of port (App-ID)",
+    "SSL inspection: decrypt, inspect, re-encrypt (breaks end-to-end encryption)",
+    "Zone-based firewall: traffic rules between security zones",
+    "iptables/nftables: Linux kernel firewall",
+    "Windows Defender Firewall: built-in Windows firewall"
+  ],
+  "children": ["iptables","ngfw","waf","firewall-rules","dmz"],
+  "parent": "defenses",
+  "relatedConcepts": ["ids","ips","zero-trust","segmentation","vpn-security"],
+  "cybersecurity": {
+    "attacks": ["firewall-bypass","port-knocking","protocol-tunneling","fragmentation-evasion"],
+    "defenses": ["default-deny","egress-filtering","application-layer-inspection"]
+  },
+  "visualization": { "color": "#ff6b35", "icon": "🔥", "nodeType": "expandable" }
+}

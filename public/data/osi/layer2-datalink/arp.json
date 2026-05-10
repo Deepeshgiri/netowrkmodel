@@ -1,0 +1,52 @@
+{
+  "id": "arp",
+  "title": "Address Resolution Protocol",
+  "shortName": "ARP",
+  "type": "protocol",
+  "osiLayer": 2,
+  "tcpIpLayer": "Link",
+  "category": "address_resolution",
+  "port": null,
+  "ethertype": "0x0806",
+  "description": "Resolves IPv4 addresses to MAC addresses within a local network segment.",
+  "fullExplanation": "When a device wants to send data to an IP on the same subnet, it needs the destination MAC address. ARP broadcasts 'Who has 192.168.1.1? Tell 192.168.1.100' to all devices (FF:FF:FF:FF:FF:FF). The device with that IP replies with its MAC address. The result is cached in the ARP table for ~20 minutes (Windows) or ~1 minute (Linux). ARP only works within a single subnet — cross-subnet traffic goes to the default gateway.",
+  "packetStructure": {
+    "fields": [
+      { "name": "Hardware Type",   "bits": 16, "description": "Network type (1 = Ethernet)",          "example": "1" },
+      { "name": "Protocol Type",   "bits": 16, "description": "Protocol (0x0800 = IPv4)",             "example": "0x0800" },
+      { "name": "HW Addr Length",  "bits": 8,  "description": "MAC address length in bytes",          "example": "6" },
+      { "name": "Proto Addr Len",  "bits": 8,  "description": "IP address length in bytes",           "example": "4" },
+      { "name": "Operation",       "bits": 16, "description": "1=Request, 2=Reply",                   "example": "1" },
+      { "name": "Sender MAC",      "bits": 48, "description": "Requester's MAC address",              "example": "AA:BB:CC:DD:EE:FF" },
+      { "name": "Sender IP",       "bits": 32, "description": "Requester's IP address",               "example": "192.168.1.100" },
+      { "name": "Target MAC",      "bits": 48, "description": "FF:FF:FF:FF:FF:FF for request",        "example": "00:00:00:00:00:00" },
+      { "name": "Target IP",       "bits": 32, "description": "IP being resolved",                    "example": "192.168.1.1" }
+    ]
+  },
+  "process": [
+    { "step": 1, "description": "Device A wants to reach 192.168.1.1 but doesn't know its MAC" },
+    { "step": 2, "description": "Device A broadcasts ARP Request to FF:FF:FF:FF:FF:FF" },
+    { "step": 3, "description": "All devices on segment receive the broadcast" },
+    { "step": 4, "description": "Device with IP 192.168.1.1 sends unicast ARP Reply with its MAC" },
+    { "step": 5, "description": "Device A caches the IP→MAC mapping in its ARP table" },
+    { "step": 6, "description": "Device A can now send Ethernet frames directly to that MAC" }
+  ],
+  "keyFacts": [
+    "ARP cache timeout: ~20 min Windows, ~1 min Linux",
+    "Gratuitous ARP: device announces its own IP/MAC (used in HSRP/VRRP failover)",
+    "ARP has NO authentication — anyone can reply",
+    "Proxy ARP: router answers ARP on behalf of remote hosts",
+    "IPv6 uses NDP (Neighbor Discovery Protocol) instead of ARP",
+    "ARP only works within a single broadcast domain (subnet)"
+  ],
+  "children": ["arp-spoofing","gratuitous-arp","proxy-arp"],
+  "parent": "layer2-datalink",
+  "dependsOn": ["ethernet","mac-addresses"],
+  "usedBy": ["ipv4","switching"],
+  "relatedConcepts": ["mac-addresses","switching","cam-table","ipv4"],
+  "cybersecurity": {
+    "attacks": ["arp-spoofing","arp-poisoning","mitm"],
+    "defenses": ["dynamic-arp-inspection","dhcp-snooping","static-arp","802.1x"]
+  },
+  "visualization": { "color": "#ffee44", "icon": "📡", "nodeType": "expandable" }
+}

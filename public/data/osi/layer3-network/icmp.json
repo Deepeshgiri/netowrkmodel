@@ -1,0 +1,65 @@
+{
+  "id": "icmp",
+  "title": "Internet Control Message Protocol",
+  "shortName": "ICMP",
+  "type": "protocol",
+  "osiLayer": 3,
+  "category": "network_protocol",
+  "port": null,
+  "transport": "IP",
+  "description": "Error reporting and diagnostic protocol used by ping and traceroute.",
+  "fullExplanation": "ICMP is a supporting protocol for IP. It doesn't carry application data — instead, it reports errors and provides diagnostics. When a router can't forward a packet, it sends an ICMP 'Destination Unreachable' message back to the source. Ping uses ICMP Echo Request/Reply to test connectivity. Traceroute uses ICMP Time Exceeded messages to map the route. ICMP has no port number — it's part of IP itself (protocol number 1).",
+  "header": {
+    "size": "8 bytes minimum",
+    "fields": [
+      { "name": "Type", "bits": 8, "description": "Message type (0=Echo Reply, 8=Echo Request, 3=Dest Unreachable)", "example": "8" },
+      { "name": "Code", "bits": 8, "description": "Sub-type within message type", "example": "0" },
+      { "name": "Checksum", "bits": 16, "description": "Error detection for ICMP header and data", "example": "0x1234" },
+      { "name": "Rest of Header", "bits": 32, "description": "Varies by message type (e.g., ID and Sequence for Echo)", "example": "ID=1, Seq=1" }
+    ]
+  },
+  "messageTypes": [
+    { "type": 0, "name": "Echo Reply", "description": "Response to ping (Echo Request)" },
+    { "type": 3, "name": "Destination Unreachable", "description": "Packet couldn't reach destination (network/host/port unreachable)" },
+    { "type": 5, "name": "Redirect", "description": "Router tells host to use different route" },
+    { "type": 8, "name": "Echo Request", "description": "Ping - test if host is reachable" },
+    { "type": 11, "name": "Time Exceeded", "description": "TTL reached 0 (used by traceroute)" },
+    { "type": 12, "name": "Parameter Problem", "description": "Malformed IP header" }
+  ],
+  "tools": [
+    {
+      "name": "ping",
+      "description": "Sends ICMP Echo Request, waits for Echo Reply",
+      "example": "ping google.com"
+    },
+    {
+      "name": "traceroute / tracert",
+      "description": "Maps route by sending packets with increasing TTL",
+      "example": "traceroute google.com"
+    },
+    {
+      "name": "pathping",
+      "description": "Combines ping and traceroute (Windows)",
+      "example": "pathping google.com"
+    }
+  ],
+  "keyFacts": [
+    "ICMP is part of IP layer, not a separate layer",
+    "Protocol number 1 in IP header",
+    "No port numbers — not a transport protocol",
+    "Ping uses Echo Request (type 8) and Echo Reply (type 0)",
+    "Traceroute uses Time Exceeded (type 11) messages",
+    "Firewalls often block ICMP for security",
+    "ICMPv6 is used with IPv6, includes Neighbor Discovery"
+  ],
+  "children": [],
+  "parent": "layer3-network",
+  "dependsOn": ["ipv4"],
+  "usedBy": ["ping", "traceroute", "routers"],
+  "relatedConcepts": ["ipv4", "routing", "network-diagnostics"],
+  "cybersecurity": {
+    "attacks": ["icmp-flood", "ping-of-death", "smurf-attack"],
+    "defenses": ["rate-limiting", "firewall-rules"]
+  },
+  "visualization": { "color": "#00d4ff", "icon": "📡", "nodeType": "leaf" }
+}

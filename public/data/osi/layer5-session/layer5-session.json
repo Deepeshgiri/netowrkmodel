@@ -1,0 +1,74 @@
+{
+  "id": "layer5-session",
+  "title": "Session Layer",
+  "shortName": "Layer 5",
+  "type": "osi-layer",
+  "osiLayer": 5,
+  "pdu": "Data",
+  "category": "osi_layer",
+  "description": "Establishes, manages, and terminates sessions between applications.",
+  "fullExplanation": "The Session Layer manages dialog control between applications. It establishes, maintains, and terminates communication sessions. A session is a logical connection that allows data exchange. This layer handles session checkpointing (saving state), recovery (resuming after failure), and synchronization. It also manages full-duplex (both directions simultaneously) or half-duplex (one direction at a time) communication.",
+  "keyFacts": [
+    "Manages dialog control between applications",
+    "Establishes, maintains, and terminates sessions",
+    "Handles session checkpointing and recovery",
+    "Manages full-duplex vs half-duplex communication",
+    "Synchronization points allow resuming after interruption",
+    "Often combined with Application layer in TCP/IP model",
+    "Examples: NetBIOS, PPTP, RPC, SQL sessions"
+  ],
+  "functions": [
+    {
+      "name": "Session Establishment",
+      "description": "Set up logical connection between applications, negotiate parameters"
+    },
+    {
+      "name": "Session Maintenance",
+      "description": "Keep session alive, handle timeouts, manage state"
+    },
+    {
+      "name": "Session Termination",
+      "description": "Gracefully close session, release resources"
+    },
+    {
+      "name": "Dialog Control",
+      "description": "Manage who can transmit (full-duplex or half-duplex)"
+    },
+    {
+      "name": "Synchronization",
+      "description": "Insert checkpoints to allow recovery from failures"
+    }
+  ],
+  "protocols": [
+    {
+      "name": "NetBIOS",
+      "description": "Network Basic Input/Output System - session services for Windows networks",
+      "port": 139
+    },
+    {
+      "name": "PPTP",
+      "description": "Point-to-Point Tunneling Protocol - VPN sessions",
+      "port": 1723
+    },
+    {
+      "name": "RPC",
+      "description": "Remote Procedure Call - execute code on remote systems",
+      "port": 135
+    },
+    {
+      "name": "SMB",
+      "description": "Server Message Block - file sharing sessions",
+      "port": 445
+    },
+    {
+      "name": "SQL Sessions",
+      "description": "Database connection sessions (MySQL, PostgreSQL, etc.)",
+      "port": "varies"
+    }
+  ],
+  "devices": ["Gateway", "Proxy Server"],
+  "children": [],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer4-transport", "layer6-presentation", "session-management"],
+  "visualization": { "color": "#8b5cf6", "icon": "🔗", "nodeType": "leaf" }
+}

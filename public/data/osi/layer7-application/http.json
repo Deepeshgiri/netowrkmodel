@@ -1,0 +1,44 @@
+{
+  "id": "http",
+  "title": "HyperText Transfer Protocol",
+  "shortName": "HTTP",
+  "type": "protocol",
+  "osiLayer": 7,
+  "tcpIpLayer": "Application",
+  "category": "application_protocol",
+  "port": 80,
+  "description": "The foundation of data communication on the World Wide Web.",
+  "fullExplanation": "HTTP is a request-response protocol. A client sends a request (method + URL + headers + optional body), the server sends a response (status code + headers + body). HTTP/1.1 introduced persistent connections. HTTP/2 added binary framing, header compression (HPACK), and stream multiplexing. HTTP/3 runs over QUIC/UDP eliminating TCP head-of-line blocking.",
+  "versions": [
+    { "version": "HTTP/1.0", "year": 1996, "feature": "One request per connection" },
+    { "version": "HTTP/1.1", "year": 1997, "feature": "Persistent connections, pipelining" },
+    { "version": "HTTP/2",   "year": 2015, "feature": "Binary, multiplexed, HPACK compression" },
+    { "version": "HTTP/3",   "year": 2022, "feature": "QUIC/UDP, no head-of-line blocking" }
+  ],
+  "methods": ["GET","POST","PUT","DELETE","PATCH","HEAD","OPTIONS","CONNECT","TRACE"],
+  "statusCodes": {
+    "1xx": "Informational",
+    "2xx": "Success — 200 OK, 201 Created, 204 No Content",
+    "3xx": "Redirection — 301 Moved, 302 Found, 304 Not Modified",
+    "4xx": "Client Error — 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests",
+    "5xx": "Server Error — 500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable"
+  },
+  "keyFacts": [
+    "HTTP is stateless — each request is independent",
+    "HTTP/2 multiplexes 100+ streams over one TCP connection",
+    "HPACK header compression reduces overhead by ~30%",
+    "HTTP/3 uses QUIC — no TCP head-of-line blocking",
+    "HTTP runs over TCP port 80, HTTPS over TCP port 443",
+    "Keep-Alive header enables persistent connections in HTTP/1.1"
+  ],
+  "children": [],
+  "parent": "layer7-application",
+  "dependsOn": ["tcp", "tls", "dns"],
+  "usedBy": [],
+  "relatedConcepts": ["dns", "tls"],
+  "cybersecurity": {
+    "attacks": ["xss", "csrf"],
+    "defenses": ["firewall"]
+  },
+  "visualization": { "color": "#00ff88", "icon": "🌐", "nodeType": "expandable" }
+}

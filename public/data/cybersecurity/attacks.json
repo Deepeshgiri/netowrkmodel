@@ -1,0 +1,16 @@
+{
+  "id": "attacks",
+  "title": "Attack Techniques",
+  "type": "category",
+  "category": "cybersecurity",
+  "description": "Common attack vectors used to compromise networks and systems",
+  "fullExplanation": "Attack techniques are methods used by malicious actors to exploit vulnerabilities in networks, systems, and applications. Understanding these attacks is crucial for implementing effective defenses.",
+  "children": ["arp-spoofing", "syn-flood", "dns-poisoning", "xss", "csrf", "mitm", "ssl-stripping"],
+  "keyFacts": [
+    "Most attacks exploit human error or misconfiguration",
+    "Defense in depth requires understanding attack techniques",
+    "Attacks often combine multiple techniques for maximum impact",
+    "Zero-day attacks exploit unknown vulnerabilities"
+  ],
+  "visualization": { "color": "#ff3366", "icon": "⚔️", "nodeType": "expandable" }
+}

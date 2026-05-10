@@ -1,0 +1,61 @@
+{
+  "id": "tcp",
+  "title": "Transmission Control Protocol",
+  "shortName": "TCP",
+  "type": "protocol",
+  "osiLayer": 4,
+  "tcpIpLayer": "Transport",
+  "category": "transport_protocol",
+  "port": null,
+  "description": "Reliable, ordered, connection-oriented transport protocol guaranteeing delivery.",
+  "fullExplanation": "TCP provides reliable, ordered, error-checked delivery of a stream of bytes between applications. It establishes a connection via 3-way handshake before data transfer. Sequence numbers track every byte. Acknowledgements confirm receipt. The sliding window controls how much data can be in-flight. Congestion control algorithms (CUBIC, BBR) prevent network overload. TCP is used by HTTP, HTTPS, SSH, SMTP, FTP — any application needing guaranteed delivery.",
+  "header": {
+    "size": "20-60 bytes",
+    "fields": [
+      { "name": "Source Port",      "bits": 16, "description": "Sender's port number (ephemeral: 49152-65535)", "example": "54321" },
+      { "name": "Destination Port", "bits": 16, "description": "Receiver's port number (well-known: 0-1023)",   "example": "443" },
+      { "name": "Sequence Number",  "bits": 32, "description": "Position of first byte in this segment",        "example": "0x3F2A1B0C" },
+      { "name": "Ack Number",       "bits": 32, "description": "Next expected byte from other side",            "example": "0x00000001" },
+      { "name": "Data Offset",      "bits": 4,  "description": "Header length in 32-bit words (min 5 = 20B)",   "example": "5" },
+      { "name": "Reserved",         "bits": 3,  "description": "Must be zero",                                  "example": "000" },
+      { "name": "Flags",            "bits": 9,  "description": "URG ACK PSH RST SYN FIN control bits",          "example": "SYN=1" },
+      { "name": "Window Size",      "bits": 16, "description": "Receive buffer available (flow control)",       "example": "65535" },
+      { "name": "Checksum",         "bits": 16, "description": "Error detection over header + data",            "example": "0xB2C4" },
+      { "name": "Urgent Pointer",   "bits": 16, "description": "Points to urgent data if URG flag set",         "example": "0" }
+    ]
+  },
+  "ports": {
+    "usedBy": [
+      { "port": 80,   "protocol": "HTTP" },
+      { "port": 443,  "protocol": "HTTPS" },
+      { "port": 22,   "protocol": "SSH" },
+      { "port": 25,   "protocol": "SMTP" },
+      { "port": 21,   "protocol": "FTP Control" },
+      { "port": 3389, "protocol": "RDP" },
+      { "port": 3306, "protocol": "MySQL" },
+      { "port": 5432, "protocol": "PostgreSQL" }
+    ]
+  },
+  "keyFacts": [
+    "3-way handshake: SYN → SYN-ACK → ACK",
+    "4-way teardown: FIN → ACK → FIN → ACK",
+    "Sequence numbers are 32-bit (wraps at 4GB)",
+    "Window scaling option allows windows up to 1GB",
+    "CUBIC is default congestion control in Linux",
+    "BBR (Google) models bandwidth instead of reacting to loss",
+    "SYN cookies prevent SYN flood without storing state",
+    "TCP Fast Open reduces latency for repeat connections"
+  ],
+  "children": ["tcp-handshake","tcp-flags","tcp-flow-control","tcp-congestion-control","retransmission","sockets"],
+  "parent": "layer4-transport",
+  "usedBy": ["http","https","smtp","ftp","ssh","rdp"],
+  "dependsOn": ["ip","ethernet"],
+  "relatedConcepts": ["udp","quic","ports","sockets"],
+  "cybersecurity": {
+    "attacks": ["syn-flood","session-hijacking","tcp-reset","tcp-sequence-prediction"],
+    "defenses": ["syn-cookies","firewall","rate-limiting","tcp-timestamps"]
+  },
+  "animations": ["tcp-animation","packet-travel"],
+  "simulationHooks": ["tcp-handshake-simulation","packet-loss-simulation"],
+  "visualization": { "color": "#00ff88", "icon": "🤝", "nodeType": "expandable" }
+}

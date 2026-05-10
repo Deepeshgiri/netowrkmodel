@@ -1,0 +1,16 @@
+{
+  "id": "defenses",
+  "title": "Defensive Security",
+  "type": "category",
+  "category": "cybersecurity",
+  "description": "Security measures and technologies to protect networks and systems",
+  "fullExplanation": "Defensive security encompasses all technologies, processes, and practices used to protect networks, systems, and data from attacks. A layered defense approach is most effective.",
+  "children": ["firewall", "zero-trust", "ids-ips", "vpn", "hsts"],
+  "keyFacts": [
+    "Defense in depth uses multiple layers of security",
+    "No single defense is 100% effective",
+    "Regular updates and patches are critical",
+    "Security is a continuous process, not a one-time setup"
+  ],
+  "visualization": { "color": "#00ff88", "icon": "🛡️", "nodeType": "expandable" }
+}

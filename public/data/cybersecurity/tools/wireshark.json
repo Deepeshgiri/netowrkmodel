@@ -1,0 +1,46 @@
+{
+  "id": "wireshark",
+  "title": "Wireshark",
+  "shortName": "Wireshark",
+  "type": "tool",
+  "category": "network_analysis",
+  "description": "The world's most popular network protocol analyzer — captures and inspects packets in real time.",
+  "fullExplanation": "Wireshark captures raw packets from a network interface using libpcap (Linux/macOS) or WinPcap/Npcap (Windows). It decodes hundreds of protocols and displays them in a human-readable format. Wireshark is used for network troubleshooting, protocol learning, security analysis, and CTF challenges. It can read pcap files saved by tcpdump.",
+  "keyFeatures": [
+    "Live packet capture from any network interface",
+    "Deep protocol dissection for 3000+ protocols",
+    "Display filters to isolate specific traffic",
+    "Follow TCP/UDP/TLS streams",
+    "Statistics: IO graphs, protocol hierarchy, conversations",
+    "Decrypt TLS if you have the session keys or RSA private key",
+    "Export objects (files transferred over HTTP, SMB, etc.)"
+  ],
+  "displayFilters": [
+    { "filter": "tcp.port == 443",          "description": "Show only HTTPS traffic" },
+    { "filter": "ip.addr == 192.168.1.1",   "description": "Show traffic to/from specific IP" },
+    { "filter": "http.request.method == GET","description": "Show HTTP GET requests" },
+    { "filter": "dns",                       "description": "Show all DNS traffic" },
+    { "filter": "tcp.flags.syn == 1",        "description": "Show TCP SYN packets" },
+    { "filter": "!(arp or dns or icmp)",     "description": "Hide noisy protocols" },
+    { "filter": "frame contains \"password\"","description": "Search for string in packets" },
+    { "filter": "tcp.analysis.retransmission","description": "Show TCP retransmissions" }
+  ],
+  "captureFilters": [
+    { "filter": "port 80",          "description": "Capture only HTTP" },
+    { "filter": "host 8.8.8.8",     "description": "Capture traffic to/from Google DNS" },
+    { "filter": "net 192.168.1.0/24","description": "Capture entire subnet" },
+    { "filter": "not port 22",       "description": "Exclude SSH traffic" }
+  ],
+  "keyFacts": [
+    "Promiscuous mode: capture all packets on segment, not just your own",
+    "Monitor mode (WiFi): capture all 802.11 frames including management frames",
+    "TLS decryption: set SSLKEYLOGFILE env var in browser to log session keys",
+    "Coloring rules: TCP errors in red, HTTP in green by default",
+    "tshark: command-line version of Wireshark",
+    "pcapng: next-gen capture format with metadata"
+  ],
+  "children": ["wireshark-filters","wireshark-tls-decrypt","tshark"],
+  "parent": "tools",
+  "relatedConcepts": ["tcpdump","nmap","packet-structures","tcp","dns"],
+  "visualization": { "color": "#00d4ff", "icon": "🦈", "nodeType": "expandable" }
+}

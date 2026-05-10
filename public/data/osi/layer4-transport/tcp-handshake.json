@@ -1,0 +1,65 @@
+{
+  "id": "tcp-handshake",
+  "title": "TCP 3-Way Handshake",
+  "shortName": "Handshake",
+  "type": "process",
+  "osiLayer": 4,
+  "category": "connection_establishment",
+  "description": "The 3-step process that establishes a TCP connection before any data is sent.",
+  "fullExplanation": "Before TCP can transfer data, both sides must agree to communicate and synchronize their sequence numbers. Step 1 — SYN: Client sends a segment with SYN flag set and a random Initial Sequence Number (ISN). Step 2 — SYN-ACK: Server responds with SYN+ACK, acknowledges client's ISN+1, and sends its own random ISN. Step 3 — ACK: Client acknowledges server's ISN+1. Connection is now ESTABLISHED. The ISN is random to prevent TCP sequence prediction attacks.",
+  "steps": [
+    {
+      "step": 1,
+      "name": "SYN",
+      "direction": "Client → Server",
+      "flags": ["SYN"],
+      "seq": "x (random ISN)",
+      "ack": "0",
+      "description": "Client initiates connection. Picks random Initial Sequence Number x. SYN flag signals connection request."
+    },
+    {
+      "step": 2,
+      "name": "SYN-ACK",
+      "direction": "Server → Client",
+      "flags": ["SYN","ACK"],
+      "seq": "y (random ISN)",
+      "ack": "x+1",
+      "description": "Server accepts. Picks its own random ISN y. Acknowledges client's ISN by sending x+1. Both SYN and ACK flags set."
+    },
+    {
+      "step": 3,
+      "name": "ACK",
+      "direction": "Client → Server",
+      "flags": ["ACK"],
+      "seq": "x+1",
+      "ack": "y+1",
+      "description": "Client acknowledges server's ISN. Connection is now ESTABLISHED. Data can flow."
+    }
+  ],
+  "teardown": {
+    "name": "4-Way Teardown",
+    "steps": [
+      { "step": 1, "name": "FIN",     "direction": "Initiator → Receiver", "description": "Initiator signals it has no more data to send" },
+      { "step": 2, "name": "ACK",     "direction": "Receiver → Initiator", "description": "Receiver acknowledges the FIN" },
+      { "step": 3, "name": "FIN",     "direction": "Receiver → Initiator", "description": "Receiver signals it has no more data to send" },
+      { "step": 4, "name": "ACK",     "direction": "Initiator → Receiver", "description": "Initiator acknowledges. Connection CLOSED after TIME_WAIT" }
+    ]
+  },
+  "keyFacts": [
+    "ISN (Initial Sequence Number) is random — prevents sequence prediction attacks",
+    "SYN-ACK timeout: 75 seconds before retransmission",
+    "SYN cookies: encode state in ISN to handle SYN floods without storing half-open connections",
+    "TCP Fast Open: send data in SYN packet for repeat connections (saves 1 RTT)",
+    "TIME_WAIT state: 2×MSL (Maximum Segment Lifetime = 2 minutes) after close",
+    "Half-open connection: SYN sent but no SYN-ACK received yet"
+  ],
+  "parent": "tcp",
+  "children": [],
+  "relatedConcepts": ["tcp-flags","syn-flood","tcp-flow-control"],
+  "cybersecurity": {
+    "attacks": ["syn-flood","tcp-reset-attack"],
+    "defenses": ["syn-cookies","firewall-stateful"]
+  },
+  "simulationHooks": ["tcp-handshake-simulation"],
+  "visualization": { "color": "#00ff88", "icon": "🤝", "nodeType": "leaf" }
+}

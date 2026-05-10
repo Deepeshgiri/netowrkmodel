@@ -1,0 +1,72 @@
+{
+  "id": "mitm",
+  "title": "Man-in-the-Middle Attack (MITM)",
+  "shortName": "MITM",
+  "type": "attack",
+  "osiLayer": 3,
+  "category": "interception",
+  "severity": "critical",
+  "description": "Intercepting communication between two parties to eavesdrop or manipulate data.",
+  "fullExplanation": "In a MITM attack, the attacker positions themselves between the victim and the destination, intercepting all traffic. The attacker can read, modify, or inject data. Common techniques include ARP spoofing (Layer 2), DNS spoofing (Layer 7), rogue WiFi access points, and SSL stripping. The victims believe they're communicating directly with each other, but everything flows through the attacker.",
+  "techniques": [
+    {
+      "name": "ARP Spoofing",
+      "layer": 2,
+      "description": "Poison ARP caches to redirect traffic through attacker",
+      "tool": "arpspoof, ettercap"
+    },
+    {
+      "name": "DNS Spoofing",
+      "layer": 7,
+      "description": "Return fake DNS responses to redirect victims to attacker's server",
+      "tool": "dnsspoof, Bettercap"
+    },
+    {
+      "name": "Rogue Access Point",
+      "layer": 2,
+      "description": "Create fake WiFi hotspot with legitimate-sounding name",
+      "tool": "airbase-ng, hostapd"
+    },
+    {
+      "name": "SSL Stripping",
+      "layer": 6,
+      "description": "Downgrade HTTPS to HTTP, intercept plaintext",
+      "tool": "sslstrip, mitmproxy"
+    },
+    {
+      "name": "BGP Hijacking",
+      "layer": 3,
+      "description": "Announce false BGP routes to redirect internet traffic",
+      "tool": "ExaBGP"
+    }
+  ],
+  "attackSteps": [
+    { "step": 1, "action": "Position between victim and target", "description": "Use ARP spoofing, rogue AP, or DNS poisoning" },
+    { "step": 2, "action": "Intercept traffic", "description": "All packets flow through attacker's machine" },
+    { "step": 3, "action": "Forward packets", "description": "Enable IP forwarding so victims don't notice" },
+    { "step": 4, "action": "Analyze/modify data", "description": "Read credentials, inject malicious code, steal session tokens" },
+    { "step": 5, "action": "Maintain persistence", "description": "Keep sending spoofed packets to maintain position" }
+  ],
+  "tools": ["Ettercap", "Bettercap", "mitmproxy", "Wireshark", "sslstrip", "arpspoof"],
+  "keyFacts": [
+    "MITM is a category of attacks, not a single technique",
+    "Requires attacker to be on network path (same subnet or ISP-level)",
+    "TLS/SSL prevents reading encrypted traffic (but not metadata)",
+    "Certificate pinning prevents fake SSL certificates",
+    "HSTS forces HTTPS and prevents SSL stripping",
+    "Public WiFi is high-risk for MITM attacks"
+  ],
+  "defenses": [
+    { "name": "Use HTTPS Everywhere", "description": "Encrypt all traffic with TLS/SSL" },
+    { "name": "HSTS", "description": "HTTP Strict Transport Security forces HTTPS, prevents downgrade" },
+    { "name": "Certificate Pinning", "description": "App only trusts specific certificates, rejects fake ones" },
+    { "name": "VPN", "description": "Encrypt all traffic through VPN tunnel" },
+    { "name": "Mutual TLS", "description": "Both client and server authenticate with certificates" },
+    { "name": "Dynamic ARP Inspection", "description": "Switch validates ARP packets" },
+    { "name": "DNSSEC", "description": "Cryptographically sign DNS responses" },
+    { "name": "Avoid Public WiFi", "description": "Or use VPN when on untrusted networks" }
+  ],
+  "parent": "attacks",
+  "relatedConcepts": ["arp-spoofing", "dns-poisoning", "tls", "ssl-stripping", "vpn", "hsts"],
+  "visualization": { "color": "#ff3366", "icon": "👤", "nodeType": "expandable" }
+}

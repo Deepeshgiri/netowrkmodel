@@ -1,0 +1,39 @@
+{
+  "id": "csrf",
+  "title": "Cross-Site Request Forgery (CSRF)",
+  "shortName": "CSRF",
+  "type": "attack",
+  "osiLayer": 7,
+  "category": "web_attack",
+  "severity": "medium",
+  "description": "Tricking a victim's browser into making unwanted requests to a site where they're authenticated.",
+  "fullExplanation": "CSRF exploits the trust a website has in the user's browser. If a user is logged into a banking site, an attacker can trick their browser into submitting a money transfer request. The browser automatically includes the session cookie, so the bank thinks it's a legitimate request. The victim doesn't even know it happened.",
+  "attackSteps": [
+    { "step": 1, "action": "Victim logs into vulnerable site", "description": "User authenticates to bank.com, receives session cookie" },
+    { "step": 2, "action": "Attacker crafts malicious page", "description": "Creates HTML with hidden form that submits to bank.com/transfer" },
+    { "step": 3, "action": "Victim visits attacker's page", "description": "Clicks malicious link or visits compromised site" },
+    { "step": 4, "action": "Browser auto-submits form", "description": "JavaScript or auto-submit form sends request to bank.com" },
+    { "step": 5, "action": "Bank processes request", "description": "Session cookie included, bank thinks it's legitimate, transfers money" }
+  ],
+  "examplePayload": "<form action='https://bank.com/transfer' method='POST'><input name='to' value='attacker'/><input name='amount' value='10000'/></form><script>document.forms[0].submit()</script>",
+  "tools": ["Burp Suite", "OWASP ZAP", "Browser DevTools"],
+  "keyFacts": [
+    "Exploits automatic cookie inclusion by browsers",
+    "Works even if victim doesn't click anything (auto-submit)",
+    "GET requests should never change state (idempotent)",
+    "CSRF tokens make each request unique and unpredictable",
+    "SameSite cookie attribute prevents cross-site requests",
+    "Requires victim to be authenticated on target site"
+  ],
+  "defenses": [
+    { "name": "CSRF Tokens", "description": "Include random token in forms, validate on server. Token not in cookie, so attacker can't access it." },
+    { "name": "SameSite Cookies", "description": "Set SameSite=Strict or Lax to prevent cookies from being sent in cross-site requests" },
+    { "name": "Check Referer Header", "description": "Verify request came from your own domain (can be bypassed)" },
+    { "name": "Custom Headers", "description": "Require X-Requested-With header (AJAX only, not in forms)" },
+    { "name": "Re-authentication", "description": "Require password for sensitive actions" },
+    { "name": "Use POST not GET", "description": "GET should be read-only, never change state" }
+  ],
+  "parent": "attacks",
+  "relatedConcepts": ["http", "xss", "session-management", "cookies", "same-origin-policy"],
+  "visualization": { "color": "#ff3366", "icon": "🎣", "nodeType": "leaf" }
+}

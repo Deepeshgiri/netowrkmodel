@@ -1,0 +1,63 @@
+{
+  "id": "https",
+  "title": "HTTP Secure (HTTPS)",
+  "shortName": "HTTPS",
+  "type": "protocol",
+  "osiLayer": 7,
+  "category": "application_protocol",
+  "port": 443,
+  "transport": "TCP",
+  "description": "HTTP over TLS/SSL - encrypted web communication.",
+  "fullExplanation": "HTTPS is HTTP wrapped in TLS/SSL encryption. When you visit https://example.com, your browser establishes a TLS connection first (handshake, certificate verification), then sends HTTP requests through the encrypted tunnel. This protects against eavesdropping and tampering. The padlock icon in browsers indicates HTTPS. Modern web requires HTTPS — browsers mark HTTP sites as 'Not Secure'.",
+  "howItWorks": [
+    { "step": 1, "action": "TCP Handshake", "description": "Client connects to server on port 443" },
+    { "step": 2, "action": "TLS Handshake", "description": "Negotiate cipher suite, verify certificate, exchange keys" },
+    { "step": 3, "action": "Encrypted HTTP", "description": "Send HTTP requests/responses through encrypted tunnel" },
+    { "step": 4, "action": "Session Reuse", "description": "TLS session can be resumed for faster subsequent connections" }
+  ],
+  "keyFacts": [
+    "HTTPS = HTTP + TLS/SSL encryption",
+    "Uses port 443 (HTTP uses port 80)",
+    "Protects confidentiality, integrity, and authenticity",
+    "Certificate Authority (CA) verifies server identity",
+    "Green padlock icon indicates valid HTTPS",
+    "HSTS forces browsers to always use HTTPS",
+    "Let's Encrypt provides free SSL certificates",
+    "TLS 1.3 is faster than TLS 1.2 (fewer round trips)"
+  ],
+  "components": [
+    {
+      "name": "SSL/TLS Certificate",
+      "description": "Digital certificate that proves server identity, contains public key"
+    },
+    {
+      "name": "Certificate Authority (CA)",
+      "description": "Trusted organization that issues certificates (DigiCert, Let's Encrypt)"
+    },
+    {
+      "name": "Public Key Infrastructure (PKI)",
+      "description": "System of CAs, certificates, and trust chains"
+    },
+    {
+      "name": "Cipher Suite",
+      "description": "Set of algorithms for key exchange, encryption, and authentication"
+    }
+  ],
+  "versions": [
+    { "version": "SSL 2.0", "year": 1995, "status": "Deprecated - insecure" },
+    { "version": "SSL 3.0", "year": 1996, "status": "Deprecated - POODLE attack" },
+    { "version": "TLS 1.0", "year": 1999, "status": "Deprecated" },
+    { "version": "TLS 1.1", "year": 2006, "status": "Deprecated" },
+    { "version": "TLS 1.2", "year": 2008, "status": "Widely used" },
+    { "version": "TLS 1.3", "year": 2018, "status": "Current - faster, more secure" }
+  ],
+  "children": [],
+  "parent": "layer7-application",
+  "dependsOn": ["http", "tls", "tcp", "dns"],
+  "relatedConcepts": ["tls", "certificates", "encryption"],
+  "cybersecurity": {
+    "attacks": ["mitm", "ssl-stripping"],
+    "defenses": ["hsts"]
+  },
+  "visualization": { "color": "#00ff88", "icon": "🔒", "nodeType": "leaf" }
+}

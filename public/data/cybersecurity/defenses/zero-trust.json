@@ -1,0 +1,38 @@
+{
+  "id": "zero-trust",
+  "title": "Zero Trust Architecture",
+  "shortName": "Zero Trust",
+  "type": "defense",
+  "category": "security_architecture",
+  "description": "Never trust, always verify — security model that eliminates implicit trust in any network location.",
+  "fullExplanation": "Traditional security assumed everything inside the network perimeter was trusted. Zero Trust assumes breach — every request must be authenticated, authorized, and continuously validated regardless of where it originates. Coined by John Kindervag at Forrester in 2010. Google's BeyondCorp (2014) was the first large-scale implementation. NIST SP 800-207 defines the formal ZTA standard.",
+  "principles": [
+    { "principle": "Verify Explicitly",      "description": "Always authenticate and authorize based on all available data points: identity, location, device health, service/workload, data classification, anomalies." },
+    { "principle": "Use Least Privilege",    "description": "Limit user access with just-in-time and just-enough-access (JIT/JEA), risk-based adaptive policies, and data protection." },
+    { "principle": "Assume Breach",          "description": "Minimize blast radius, segment access, encrypt end-to-end, use analytics to get visibility and drive threat detection." }
+  ],
+  "pillars": [
+    { "pillar": "Identity",   "tools": ["MFA","SSO","PAM","Conditional Access"],          "description": "Strong identity verification for every user and service account" },
+    { "pillar": "Device",     "tools": ["MDM","EDR","Compliance Checks","Certificate"],   "description": "Verify device health and compliance before granting access" },
+    { "pillar": "Network",    "tools": ["Microsegmentation","ZTNA","SD-WAN","DNS Security"],"description": "Segment networks, encrypt traffic, eliminate implicit trust" },
+    { "pillar": "Application","tools": ["WAF","API Gateway","CASB","App Proxy"],          "description": "Secure access to applications regardless of location" },
+    { "pillar": "Data",       "tools": ["DLP","Encryption","Classification","IRM"],       "description": "Protect data at rest, in transit, and in use" }
+  ],
+  "vsTraditional": {
+    "traditional": "Castle and moat — trust everything inside perimeter, block everything outside",
+    "zeroTrust":   "Verify every request — no implicit trust based on network location"
+  },
+  "keyFacts": [
+    "Coined by John Kindervag (Forrester) in 2010",
+    "Google BeyondCorp: first major ZTA implementation (2014)",
+    "NIST SP 800-207: official Zero Trust Architecture standard",
+    "ZTNA replaces VPN: identity-based access to specific apps, not entire network",
+    "Microsegmentation: isolate workloads to limit lateral movement after breach",
+    "Continuous verification: re-authenticate based on risk signals",
+    "US Executive Order 14028 (2021): mandates ZTA for federal agencies"
+  ],
+  "children": ["microsegmentation","ztna","identity-verification","device-trust"],
+  "parent": "defenses",
+  "relatedConcepts": ["firewall","vpn-security","segmentation","ids","siem"],
+  "visualization": { "color": "#ff3366", "icon": "🚫", "nodeType": "expandable" }
+}

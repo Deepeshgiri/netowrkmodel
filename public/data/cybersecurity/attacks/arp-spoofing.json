@@ -1,0 +1,37 @@
+{
+  "id": "arp-spoofing",
+  "title": "ARP Spoofing / ARP Poisoning",
+  "shortName": "ARP Spoof",
+  "type": "attack",
+  "osiLayer": 2,
+  "category": "man_in_the_middle",
+  "severity": "critical",
+  "description": "Sending fake ARP replies to poison ARP caches and intercept network traffic.",
+  "fullExplanation": "ARP has no authentication — any device can send an ARP reply claiming any IP-to-MAC mapping. An attacker sends gratuitous ARP replies to both the victim and the gateway: telling the victim 'the gateway MAC is MY MAC' and telling the gateway 'the victim MAC is MY MAC'. Both update their ARP caches. All traffic between victim and gateway now flows through the attacker — a classic Man-in-the-Middle position.",
+  "attackSteps": [
+    { "step": 1, "action": "Attacker sends ARP Reply to victim",  "payload": "192.168.1.1 is at AA:BB:CC:DD:EE:FF (attacker MAC)", "effect": "Victim's ARP cache poisoned — gateway IP maps to attacker MAC" },
+    { "step": 2, "action": "Attacker sends ARP Reply to gateway", "payload": "192.168.1.100 is at AA:BB:CC:DD:EE:FF (attacker MAC)", "effect": "Gateway's ARP cache poisoned — victim IP maps to attacker MAC" },
+    { "step": 3, "action": "Attacker enables IP forwarding",      "payload": "sysctl net.ipv4.ip_forward=1",                       "effect": "Traffic forwarded so victim doesn't notice" },
+    { "step": 4, "action": "All victim traffic flows through attacker", "payload": "Attacker can read, modify, or drop packets",   "effect": "Full MITM — credentials, session tokens, data exposed" }
+  ],
+  "tools": ["arpspoof (dsniff)","ettercap","bettercap","scapy","mitmproxy"],
+  "keyFacts": [
+    "ARP has no authentication — completely trust-based",
+    "Attack works on any switched network",
+    "Attacker must be on the same subnet",
+    "Can be used to intercept HTTP, steal cookies, downgrade HTTPS",
+    "Continuous ARP replies needed — caches expire",
+    "Detectable by monitoring ARP traffic for duplicates"
+  ],
+  "defenses": [
+    { "name": "Dynamic ARP Inspection (DAI)", "description": "Switch validates ARP packets against DHCP snooping binding table. Drops invalid ARP replies." },
+    { "name": "DHCP Snooping",               "description": "Builds trusted IP-MAC-port binding table used by DAI." },
+    { "name": "Static ARP Entries",          "description": "Manually configure IP-MAC mappings for critical hosts. Not scalable." },
+    { "name": "802.1X Port Authentication",  "description": "Only authenticated devices can connect to switch ports." },
+    { "name": "XArp / ARPwatch",             "description": "Monitor ARP traffic and alert on suspicious changes." },
+    { "name": "Encrypted Protocols",         "description": "HTTPS, SSH, TLS protect data even if MITM succeeds." }
+  ],
+  "parent": "attacks",
+  "relatedConcepts": ["arp","mitm","mac-addresses","switching","dhcp-snooping"],
+  "visualization": { "color": "#ff3366", "icon": "☠️", "nodeType": "expandable" }
+}

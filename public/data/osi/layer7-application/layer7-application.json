@@ -1,0 +1,25 @@
+{
+  "id": "layer7-application",
+  "title": "Application Layer",
+  "shortName": "Layer 7",
+  "type": "osi-layer",
+  "osiLayer": 7,
+  "pdu": "Data",
+  "category": "osi_layer",
+  "description": "Provides network services directly to end-user applications.",
+  "fullExplanation": "The Application Layer is the topmost layer of the OSI model. It provides network services directly to applications like web browsers, email clients, and file transfer programs. This layer handles high-level protocols like HTTP, DNS, SMTP, FTP, and SSH. It does NOT include the application itself — only the protocols that applications use to communicate over the network.",
+  "keyFacts": [
+    "Closest layer to the end user",
+    "Provides protocols for applications to use",
+    "HTTP/HTTPS for web browsing",
+    "DNS for domain name resolution",
+    "SMTP/IMAP/POP3 for email",
+    "SSH for secure remote access",
+    "FTP/SFTP for file transfer"
+  ],
+  "devices": ["Application Gateway", "Proxy Server", "Load Balancer"],
+  "children": ["http", "https", "dns", "ssh", "dhcp"],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer6-presentation", "tcp", "udp", "tls"],
+  "visualization": { "color": "#00ff88", "icon": "🌐", "nodeType": "expandable" }
+}

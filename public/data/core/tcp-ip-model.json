@@ -1,0 +1,111 @@
+{
+  "id": "tcp-ip-model",
+  "title": "TCP/IP Model (Internet Protocol Suite)",
+  "shortName": "TCP/IP",
+  "type": "model",
+  "category": "core_model",
+  "description": "The practical 4-layer model that powers the modern internet, developed by DARPA in the 1970s.",
+  "fullExplanation": "The TCP/IP model (also called the Internet Protocol Suite or DoD model) is the actual protocol suite used on the internet. Unlike OSI which is a theoretical reference model, TCP/IP is the real implementation. It has 4 layers: Application (combines OSI layers 5-7), Transport (OSI layer 4), Internet (OSI layer 3), and Network Access/Link (OSI layers 1-2). Every device on the internet uses TCP/IP. The name comes from its two most important protocols: TCP (Transmission Control Protocol) and IP (Internet Protocol).",
+  "layers": [
+    { 
+      "number": 4, 
+      "name": "Application Layer", 
+      "id": "tcpip-application",
+      "osiEquivalent": "OSI Layers 5, 6, 7", 
+      "pdu": "Data",
+      "protocols": ["HTTP", "HTTPS", "DNS", "SMTP", "FTP", "SSH", "DHCP", "SNMP", "Telnet", "IMAP", "POP3"],
+      "description": "Provides network services directly to applications. Combines OSI's Application, Presentation, and Session layers.",
+      "color": "#00ff88",
+      "icon": "🌐"
+    },
+    { 
+      "number": 3, 
+      "name": "Transport Layer", 
+      "id": "tcpip-transport",
+      "osiEquivalent": "OSI Layer 4", 
+      "pdu": "Segment (TCP) / Datagram (UDP)",
+      "protocols": ["TCP", "UDP", "SCTP", "DCCP"],
+      "description": "Provides end-to-end communication. TCP is reliable and connection-oriented. UDP is fast and connectionless.",
+      "color": "#00d4ff",
+      "icon": "📦"
+    },
+    { 
+      "number": 2, 
+      "name": "Internet Layer", 
+      "id": "tcpip-internet",
+      "osiEquivalent": "OSI Layer 3", 
+      "pdu": "Packet",
+      "protocols": ["IPv4", "IPv6", "ICMP", "ICMPv6", "IPsec", "IGMP"],
+      "description": "Routes packets across networks using IP addresses. Handles fragmentation, reassembly, and routing.",
+      "color": "#8b5cf6",
+      "icon": "🗺️"
+    },
+    { 
+      "number": 1, 
+      "name": "Network Access Layer (Link Layer)", 
+      "id": "tcpip-link",
+      "osiEquivalent": "OSI Layers 1, 2", 
+      "pdu": "Frame",
+      "protocols": ["Ethernet", "WiFi (802.11)", "PPP", "ARP", "MAC", "DSL", "SONET"],
+      "description": "Handles physical transmission over network hardware. Combines OSI's Physical and Data Link layers.",
+      "color": "#ffcc00",
+      "icon": "🔗"
+    }
+  ],
+  "keyFacts": [
+    "Developed by DARPA in 1970s for ARPANET (precursor to internet)",
+    "4 layers vs OSI's 7 layers - more practical and simpler",
+    "TCP/IP is the actual internet protocol suite used worldwide",
+    "OSI is a reference model for teaching, TCP/IP is the real implementation",
+    "Named after TCP (Transmission Control Protocol) and IP (Internet Protocol)",
+    "IPv4 uses 32-bit addresses, IPv6 uses 128-bit addresses",
+    "Every internet-connected device uses TCP/IP",
+    "Application layer combines OSI layers 5, 6, and 7",
+    "Network Access layer combines OSI layers 1 and 2"
+  ],
+  "comparison": {
+    "title": "TCP/IP vs OSI Model",
+    "differences": [
+      {
+        "aspect": "Number of Layers",
+        "tcpip": "4 layers",
+        "osi": "7 layers"
+      },
+      {
+        "aspect": "Development",
+        "tcpip": "Developed before OSI, protocol-driven",
+        "osi": "Developed after TCP/IP, model-driven"
+      },
+      {
+        "aspect": "Usage",
+        "tcpip": "Actually used on the internet",
+        "osi": "Theoretical reference model"
+      },
+      {
+        "aspect": "Approach",
+        "tcpip": "Practical, based on existing protocols",
+        "osi": "Theoretical, designed before protocols"
+      },
+      {
+        "aspect": "Session & Presentation",
+        "tcpip": "Combined into Application layer",
+        "osi": "Separate layers (5 and 6)"
+      },
+      {
+        "aspect": "Physical & Data Link",
+        "tcpip": "Combined into Network Access layer",
+        "osi": "Separate layers (1 and 2)"
+      }
+    ]
+  },
+  "encapsulation": [
+    { "layer": "Application", "action": "Application creates data", "pdu": "Data" },
+    { "layer": "Transport", "action": "TCP/UDP adds port numbers", "pdu": "Segment/Datagram" },
+    { "layer": "Internet", "action": "IP adds source/destination IP addresses", "pdu": "Packet" },
+    { "layer": "Network Access", "action": "Ethernet adds MAC addresses", "pdu": "Frame" },
+    { "layer": "Physical", "action": "Converted to bits and transmitted", "pdu": "Bits" }
+  ],
+  "children": [],
+  "relatedConcepts": ["osi-model", "encapsulation", "protocol-stack"],
+  "visualization": { "color": "#00ff88", "icon": "🌐", "nodeType": "leaf" }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "osi-model",
+  "title": "OSI Reference Model",
+  "shortName": "OSI",
+  "type": "model",
+  "category": "core_model",
+  "description": "The Open Systems Interconnection model is a conceptual framework that standardizes network communication into 7 abstraction layers.",
+  "fullExplanation": "Developed by ISO in 1984, the OSI model divides network communication into 7 layers. Each layer has a specific role and communicates with the layers directly above and below it. Data flows down the stack on the sender side (encapsulation) and up the stack on the receiver side (decapsulation). Each layer adds its own header (and sometimes trailer) to the data — this is called Protocol Data Unit (PDU) encapsulation.",
+  "layers": [
+    { "number": 7, "name": "Application",    "id": "layer7-application", "pdu": "Data",     "color": "#00ff88", "icon": "🌍", "devices": ["Browser","Server","App"] },
+    { "number": 6, "name": "Presentation",   "id": "layer6-presentation","pdu": "Data",     "color": "#ff3366", "icon": "🔒", "devices": ["SSL Proxy","Gateway"] },
+    { "number": 5, "name": "Session",        "id": "layer5-session",     "pdu": "Data",     "color": "#8b5cf6", "icon": "🔐", "devices": ["Gateway","Proxy"] },
+    { "number": 4, "name": "Transport",      "id": "layer4-transport",   "pdu": "Segment",  "color": "#00ff88", "icon": "📦", "devices": ["Firewall","Load Balancer"] },
+    { "number": 3, "name": "Network",        "id": "layer3-network",     "pdu": "Packet",   "color": "#00d4ff", "icon": "🌐", "devices": ["Router","L3 Switch"] },
+    { "number": 2, "name": "Data Link",      "id": "layer2-datalink",    "pdu": "Frame",    "color": "#ffcc00", "icon": "🔗", "devices": ["Switch","Bridge","NIC"] },
+    { "number": 1, "name": "Physical",       "id": "layer1-physical",    "pdu": "Bits",     "color": "#ff6b35", "icon": "⚡", "devices": ["Hub","Repeater","Cable"] }
+  ],
+  "keyFacts": [
+    "OSI stands for Open Systems Interconnection",
+    "Developed by ISO in 1984",
+    "7 layers each with a specific function",
+    "Encapsulation adds headers going down, decapsulation removes them going up",
+    "TCP/IP model collapses OSI into 4 layers"
+  ],
+  "children": ["layer1-physical","layer2-datalink","layer3-network","layer4-transport","layer5-session","layer6-presentation","layer7-application"],
+  "relatedConcepts": ["tcp-ip-model","encapsulation","protocol-stack"],
+  "visualization": { "color": "#00d4ff", "icon": "📚", "nodeType": "expandable" }
+}

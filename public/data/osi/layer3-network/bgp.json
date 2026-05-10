@@ -1,0 +1,50 @@
+{
+  "id": "bgp",
+  "title": "Border Gateway Protocol",
+  "shortName": "BGP",
+  "type": "protocol",
+  "osiLayer": 3,
+  "tcpIpLayer": "Internet",
+  "category": "routing_protocol",
+  "port": 179,
+  "transport": "TCP",
+  "description": "The routing protocol of the internet — connects autonomous systems worldwide.",
+  "fullExplanation": "BGP is the only EGP (Exterior Gateway Protocol) in use today. It connects ~100,000 Autonomous Systems (ASes) — each AS is a network under one administrative control (ISP, company, university). BGP peers exchange reachability information: 'I can reach these prefixes via this AS path'. BGP selects the best path using a complex decision process. eBGP runs between different ASes, iBGP runs within the same AS.",
+  "pathSelectionOrder": [
+    "1. Highest Weight (Cisco proprietary, local only)",
+    "2. Highest Local Preference (within AS)",
+    "3. Locally originated routes",
+    "4. Shortest AS Path length",
+    "5. Lowest Origin type (IGP < EGP < Incomplete)",
+    "6. Lowest MED (Multi-Exit Discriminator)",
+    "7. eBGP over iBGP",
+    "8. Lowest IGP metric to next-hop",
+    "9. Oldest eBGP route",
+    "10. Lowest Router ID"
+  ],
+  "messageTypes": [
+    { "type": "OPEN",         "description": "Establish BGP session — exchange AS number, BGP version, hold time, Router ID" },
+    { "type": "UPDATE",       "description": "Advertise new prefixes or withdraw previously advertised prefixes" },
+    { "type": "KEEPALIVE",    "description": "Sent every 1/3 of hold time to maintain session (default every 60s)" },
+    { "type": "NOTIFICATION", "description": "Report error and close session" }
+  ],
+  "keyFacts": [
+    "BGP runs over TCP port 179",
+    "~900,000 routes in global BGP table (2024)",
+    "Hold time default: 180 seconds",
+    "BGP convergence: minutes (vs OSPF seconds)",
+    "RPKI (Resource Public Key Infrastructure) prevents BGP hijacking",
+    "Pakistan Telecom hijacked YouTube via BGP in 2008",
+    "BGP communities: 32-bit tags for policy control",
+    "Route reflectors eliminate iBGP full mesh requirement"
+  ],
+  "children": ["bgp-routing","bgp-security","rpki","as-numbers"],
+  "parent": "layer3-network",
+  "dependsOn": ["tcp","ip"],
+  "relatedConcepts": ["ospf","routing","internet-backbone","isp-architecture"],
+  "cybersecurity": {
+    "attacks": ["bgp-hijacking","bgp-route-leak","bgp-session-reset"],
+    "defenses": ["rpki","bgp-communities","prefix-filtering","ttl-security"]
+  },
+  "visualization": { "color": "#0088cc", "icon": "🌍", "nodeType": "expandable" }
+}

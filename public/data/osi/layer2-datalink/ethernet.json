@@ -1,0 +1,51 @@
+{
+  "id": "ethernet",
+  "title": "Ethernet",
+  "shortName": "Ethernet",
+  "type": "protocol",
+  "osiLayer": 2,
+  "tcpIpLayer": "Link",
+  "category": "data_link_protocol",
+  "description": "The dominant wired LAN technology defining how data is framed and transmitted over physical media.",
+  "fullExplanation": "Ethernet (IEEE 802.3) defines how devices on a local network format data into frames and transmit them. Each frame has source and destination MAC addresses, an EtherType field identifying the payload protocol, the payload itself (46-1500 bytes), and a CRC-32 checksum. Modern Ethernet is full-duplex — devices can send and receive simultaneously. Speeds range from 10Mbps to 400Gbps.",
+  "frameStructure": {
+    "fields": [
+      { "name": "Preamble",     "bytes": 7,      "description": "10101010... synchronization pattern",          "example": "AA AA AA AA AA AA AA" },
+      { "name": "SFD",          "bytes": 1,      "description": "Start Frame Delimiter — 10101011",            "example": "AB" },
+      { "name": "Dst MAC",      "bytes": 6,      "description": "Destination MAC address",                     "example": "FF:FF:FF:FF:FF:FF" },
+      { "name": "Src MAC",      "bytes": 6,      "description": "Source MAC address",                          "example": "A4:C3:F0:12:34:56" },
+      { "name": "802.1Q Tag",   "bytes": "0 or 4","description": "Optional VLAN tag (TPID 0x8100 + PCP+DEI+VID)","example": "81 00 00 0A" },
+      { "name": "EtherType",    "bytes": 2,      "description": "0x0800=IPv4, 0x0806=ARP, 0x86DD=IPv6",        "example": "08 00" },
+      { "name": "Payload",      "bytes": "46-1500","description": "Encapsulated network layer data",           "example": "IP packet..." },
+      { "name": "CRC-32",       "bytes": 4,      "description": "Cyclic Redundancy Check for error detection", "example": "A3 F2 C1 D8" }
+    ]
+  },
+  "speeds": [
+    { "name": "10BASE-T",   "speed": "10 Mbps",   "medium": "Cat3 UTP",    "standard": "802.3i" },
+    { "name": "100BASE-TX", "speed": "100 Mbps",  "medium": "Cat5 UTP",    "standard": "802.3u" },
+    { "name": "1000BASE-T", "speed": "1 Gbps",    "medium": "Cat5e UTP",   "standard": "802.3ab" },
+    { "name": "10GBASE-T",  "speed": "10 Gbps",   "medium": "Cat6A UTP",   "standard": "802.3an" },
+    { "name": "25GBASE-T",  "speed": "25 Gbps",   "medium": "Cat8 UTP",    "standard": "802.3bq" },
+    { "name": "100GBASE-SR","speed": "100 Gbps",  "medium": "MMF Fiber",   "standard": "802.3bm" },
+    { "name": "400GBASE-DR","speed": "400 Gbps",  "medium": "SMF Fiber",   "standard": "802.3bs" }
+  ],
+  "keyFacts": [
+    "Minimum frame size: 64 bytes (to detect collisions)",
+    "Maximum frame size: 1518 bytes (1522 with VLAN tag)",
+    "Jumbo frames: up to 9000 bytes (data center use)",
+    "CRC-32 detects errors with 99.9999977% accuracy",
+    "EtherType 0x8100 = 802.1Q VLAN tagged frame",
+    "Full-duplex: simultaneous send and receive, no collisions",
+    "CSMA/CD: collision detection (legacy half-duplex only)"
+  ],
+  "children": ["ethernet-frame","mac-addresses","vlans","switching","stp"],
+  "parent": "layer2-datalink",
+  "dependsOn": ["cables","fiber","wireless"],
+  "usedBy": ["ipv4","ipv6","arp"],
+  "relatedConcepts": ["mac-addresses","switching","vlans","arp"],
+  "cybersecurity": {
+    "attacks": ["mac-flooding","arp-spoofing","vlan-hopping","double-tagging"],
+    "defenses": ["port-security","dynamic-arp-inspection","802.1x","private-vlan"]
+  },
+  "visualization": { "color": "#ffcc00", "icon": "🔗", "nodeType": "expandable" }
+}

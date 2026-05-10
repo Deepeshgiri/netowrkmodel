@@ -1,0 +1,25 @@
+{
+  "id": "layer4-transport",
+  "title": "Transport Layer",
+  "shortName": "Layer 4",
+  "type": "osi-layer",
+  "osiLayer": 4,
+  "pdu": "Segment (TCP) / Datagram (UDP)",
+  "category": "osi_layer",
+  "description": "Provides reliable or unreliable delivery, flow control, and error recovery.",
+  "fullExplanation": "The Transport Layer provides end-to-end communication services. TCP provides reliable, ordered, error-checked delivery with flow control and congestion control. UDP provides fast, connectionless delivery without guarantees. This layer uses port numbers (0-65535) to identify applications. Well-known ports: 0-1023, Registered: 1024-49151, Dynamic: 49152-65535.",
+  "keyFacts": [
+    "TCP: reliable, ordered, connection-oriented",
+    "UDP: fast, connectionless, no guarantees",
+    "Port numbers identify applications (0-65535)",
+    "TCP 3-way handshake: SYN → SYN-ACK → ACK",
+    "Flow control prevents receiver overflow",
+    "Congestion control prevents network overload",
+    "TCP uses sliding window for efficiency"
+  ],
+  "devices": ["Load Balancer", "Firewall (L4)"],
+  "children": ["tcp", "udp", "tcp-handshake"],
+  "parent": "osi-model",
+  "relatedConcepts": ["layer3-network", "layer7-application", "ports"],
+  "visualization": { "color": "#00ff88", "icon": "🚚", "nodeType": "expandable" }
+}

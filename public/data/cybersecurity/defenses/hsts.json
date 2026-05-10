@@ -1,0 +1,70 @@
+{
+  "id": "hsts",
+  "title": "HTTP Strict Transport Security",
+  "shortName": "HSTS",
+  "type": "defense",
+  "category": "web_security",
+  "description": "HTTP header that forces browsers to always use HTTPS.",
+  "fullExplanation": "HSTS is an HTTP response header that tells browsers: 'Always use HTTPS for this domain, never HTTP'. Once a browser sees the HSTS header, it will automatically upgrade all HTTP requests to HTTPS for the specified duration (max-age). This prevents SSL stripping attacks. Even if a user types http://example.com, the browser will internally change it to https://example.com before sending the request.",
+  "header": {
+    "name": "Strict-Transport-Security",
+    "example": "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
+    "directives": [
+      {
+        "name": "max-age",
+        "description": "How long (in seconds) browser should remember to use HTTPS",
+        "example": "31536000 (1 year)"
+      },
+      {
+        "name": "includeSubDomains",
+        "description": "Apply HSTS to all subdomains (www.example.com, api.example.com, etc.)",
+        "optional": true
+      },
+      {
+        "name": "preload",
+        "description": "Request inclusion in browser's HSTS preload list",
+        "optional": true
+      }
+    ]
+  },
+  "howItWorks": [
+    { "step": 1, "action": "First visit", "description": "User visits https://example.com (must be HTTPS)" },
+    { "step": 2, "action": "Server sends HSTS header", "description": "Strict-Transport-Security: max-age=31536000" },
+    { "step": 3, "action": "Browser remembers", "description": "Browser stores HSTS policy for 1 year" },
+    { "step": 4, "action": "Future visits", "description": "User types http://example.com → browser auto-upgrades to https://" },
+    { "step": 5, "action": "No network request", "description": "Upgrade happens before any network traffic (prevents MITM)" }
+  ],
+  "keyFacts": [
+    "Prevents SSL stripping attacks",
+    "Browser automatically upgrades HTTP to HTTPS",
+    "First visit must be HTTPS (trust on first use problem)",
+    "HSTS Preload list solves first-visit problem",
+    "max-age typically 1-2 years (31536000 seconds)",
+    "includeSubDomains applies to all subdomains",
+    "Cannot be disabled by user (until max-age expires)",
+    "Invalid certificates cause hard failure (no bypass option)"
+  ],
+  "preloadList": {
+    "description": "Browsers ship with hardcoded list of HSTS domains",
+    "benefit": "Protects even on first visit (no trust on first use)",
+    "submission": "Submit domain at hstspreload.org",
+    "requirements": [
+      "Valid HTTPS certificate",
+      "Redirect HTTP to HTTPS",
+      "Serve HSTS header on all subdomains",
+      "max-age at least 1 year",
+      "includeSubDomains directive",
+      "preload directive"
+    ]
+  },
+  "limitations": [
+    "First visit must be HTTPS (unless preloaded)",
+    "Cannot easily remove from preload list",
+    "Breaks sites that need HTTP for some subdomains",
+    "User cannot bypass certificate errors"
+  ],
+  "children": [],
+  "parent": "defenses",
+  "relatedConcepts": ["https", "tls", "ssl-stripping", "certificates"],
+  "visualization": { "color": "#00ff88", "icon": "🔒", "nodeType": "leaf" }
+}

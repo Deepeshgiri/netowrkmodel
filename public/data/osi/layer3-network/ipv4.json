@@ -1,0 +1,60 @@
+{
+  "id": "ipv4",
+  "title": "Internet Protocol version 4",
+  "shortName": "IPv4",
+  "type": "protocol",
+  "osiLayer": 3,
+  "tcpIpLayer": "Internet",
+  "category": "network_protocol",
+  "description": "32-bit addressing scheme powering most of today's internet traffic.",
+  "fullExplanation": "IPv4 uses 32-bit addresses written as four octets (e.g. 192.168.1.1). With only 4.3 billion possible addresses, IPv4 was exhausted in 2011. NAT (Network Address Translation) extended its life by allowing many private devices to share one public IP. IPv4 handles routing, fragmentation, and TTL-based loop prevention. The header is 20 bytes minimum.",
+  "header": {
+    "size": "20-60 bytes",
+    "fields": [
+      { "name": "Version",       "bits": 4,  "description": "IP version (4)",                              "example": "4" },
+      { "name": "IHL",           "bits": 4,  "description": "Internet Header Length in 32-bit words",      "example": "5 (=20 bytes)" },
+      { "name": "DSCP",          "bits": 6,  "description": "Differentiated Services — QoS marking",       "example": "0x00" },
+      { "name": "ECN",           "bits": 2,  "description": "Explicit Congestion Notification",            "example": "00" },
+      { "name": "Total Length",  "bits": 16, "description": "Total packet size including header",          "example": "1500" },
+      { "name": "Identification","bits": 16, "description": "Fragment group identifier",                   "example": "0x1A2B" },
+      { "name": "Flags",         "bits": 3,  "description": "DF (Don't Fragment), MF (More Fragments)",    "example": "DF=1" },
+      { "name": "Frag Offset",   "bits": 13, "description": "Position of fragment in original datagram",   "example": "0" },
+      { "name": "TTL",           "bits": 8,  "description": "Hops remaining before packet discarded",      "example": "64" },
+      { "name": "Protocol",      "bits": 8,  "description": "Next layer protocol (6=TCP, 17=UDP, 1=ICMP)", "example": "6" },
+      { "name": "Checksum",      "bits": 16, "description": "Header integrity check (not data)",           "example": "0xF3A1" },
+      { "name": "Source IP",     "bits": 32, "description": "Sender's IP address",                        "example": "192.168.1.100" },
+      { "name": "Destination IP","bits": 32, "description": "Receiver's IP address",                      "example": "142.250.80.46" }
+    ]
+  },
+  "addressClasses": [
+    { "class": "A", "range": "1.0.0.0 – 126.255.255.255",   "defaultMask": "/8",  "hosts": "16 million" },
+    { "class": "B", "range": "128.0.0.0 – 191.255.255.255", "defaultMask": "/16", "hosts": "65534" },
+    { "class": "C", "range": "192.0.0.0 – 223.255.255.255", "defaultMask": "/24", "hosts": "254" }
+  ],
+  "privateRanges": [
+    { "range": "10.0.0.0/8",      "description": "Class A private (16M hosts)" },
+    { "range": "172.16.0.0/12",   "description": "Class B private (1M hosts)" },
+    { "range": "192.168.0.0/16",  "description": "Class C private (65K hosts)" },
+    { "range": "127.0.0.0/8",     "description": "Loopback (localhost)" },
+    { "range": "169.254.0.0/16",  "description": "Link-local / APIPA (no DHCP)" }
+  ],
+  "keyFacts": [
+    "32-bit address = 4.3 billion total addresses",
+    "IPv4 exhausted at IANA level in February 2011",
+    "TTL starts at 64 (Linux) or 128 (Windows)",
+    "Protocol field: 6=TCP, 17=UDP, 1=ICMP, 89=OSPF, 50=ESP",
+    "DF bit prevents fragmentation — used in PMTUD",
+    "Fragmentation reassembled at destination, not intermediate routers",
+    "NAT extended IPv4 life by sharing public IPs"
+  ],
+  "children": ["subnetting","nat","fragmentation","icmp","ipv6"],
+  "parent": "layer3-network",
+  "dependsOn": ["ethernet","arp"],
+  "usedBy": ["tcp","udp","icmp","ospf","bgp"],
+  "relatedConcepts": ["ipv6","subnetting","nat","routing","cidr"],
+  "cybersecurity": {
+    "attacks": ["ip-spoofing","ip-fragmentation-attack","smurf-attack"],
+    "defenses": ["ingress-filtering","bcp38","urpf"]
+  },
+  "visualization": { "color": "#00d4ff", "icon": "4️⃣", "nodeType": "expandable" }
+}

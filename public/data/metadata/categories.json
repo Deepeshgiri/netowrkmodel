@@ -1,0 +1,76 @@
+{
+  "categories": [
+    {
+      "id": "networking",
+      "title": "Computer Networking",
+      "icon": "🌐",
+      "color": "#00d4ff",
+      "description": "Everything about how computers communicate",
+      "children": ["internet", "osi-model", "tcp-ip-model"]
+    },
+    {
+      "id": "osi-layers",
+      "title": "OSI Model Layers",
+      "icon": "📚",
+      "color": "#8b5cf6",
+      "description": "All 7 OSI layers with protocols and devices",
+      "children": [
+        "layer7-application",
+        "layer6-presentation",
+        "layer5-session",
+        "layer4-transport",
+        "layer3-network",
+        "layer2-datalink",
+        "layer1-physical"
+      ]
+    },
+    {
+      "id": "protocols",
+      "title": "Network Protocols",
+      "icon": "📡",
+      "color": "#00ff88",
+      "description": "All major networking protocols",
+      "children": ["http", "https", "dns", "ssh", "dhcp", "tcp", "udp", "tls", "ipv4", "icmp", "arp", "bgp", "ospf", "ethernet"]
+    },
+    {
+      "id": "hardware",
+      "title": "Network Hardware",
+      "icon": "🔲",
+      "color": "#ffcc00",
+      "description": "Physical components of networking",
+      "children": ["nic", "cables", "wireless"]
+    },
+    {
+      "id": "cybersecurity",
+      "title": "Cybersecurity",
+      "icon": "🔐",
+      "color": "#ff3366",
+      "description": "Attacks, defenses, and security concepts",
+      "children": ["attacks", "defenses", "tools"]
+    },
+    {
+      "id": "attacks",
+      "title": "Attack Techniques",
+      "icon": "⚔️",
+      "color": "#ff3366",
+      "description": "How attackers compromise systems",
+      "children": ["arp-spoofing", "syn-flood", "dns-poisoning", "xss", "csrf", "mitm", "ssl-stripping"]
+    },
+    {
+      "id": "defenses",
+      "title": "Defensive Security",
+      "icon": "🛡️",
+      "color": "#00ff88",
+      "description": "How to protect systems and networks",
+      "children": ["firewall", "zero-trust", "ids-ips", "vpn", "hsts"]
+    },
+    {
+      "id": "tools",
+      "title": "Security Tools",
+      "icon": "🛠️",
+      "color": "#ffcc00",
+      "description": "Tools used in networking and security",
+      "children": ["wireshark", "nmap"]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "dns",
+  "title": "Domain Name System",
+  "shortName": "DNS",
+  "type": "protocol",
+  "osiLayer": 7,
+  "tcpIpLayer": "Application",
+  "category": "application_protocol",
+  "port": 53,
+  "transport": ["UDP (queries <512 bytes)","TCP (responses >512 bytes, zone transfers)"],
+  "description": "The internet's phone book — translates domain names to IP addresses.",
+  "fullExplanation": "DNS is a hierarchical distributed database. When you type google.com, your browser checks its cache, then the OS cache, then /etc/hosts, then asks a recursive resolver (usually your ISP or 8.8.8.8). The resolver asks a root nameserver (.), which points to the .com TLD nameserver, which points to google.com's authoritative nameserver, which returns the IP. This whole process typically takes 20-120ms.",
+  "recordTypes": [
+    { "type": "A",     "description": "IPv4 address",                    "example": "google.com → 142.250.80.46" },
+    { "type": "AAAA",  "description": "IPv6 address",                    "example": "google.com → 2607:f8b0:4004::200e" },
+    { "type": "CNAME", "description": "Canonical name (alias)",          "example": "www.example.com → example.com" },
+    { "type": "MX",    "description": "Mail exchange server",            "example": "example.com → mail.example.com (priority 10)" },
+    { "type": "TXT",   "description": "Text record (SPF, DKIM, DMARC)",  "example": "v=spf1 include:_spf.google.com ~all" },
+    { "type": "NS",    "description": "Nameserver for zone",             "example": "example.com → ns1.example.com" },
+    { "type": "SOA",   "description": "Start of Authority — zone info",  "example": "Serial, refresh, retry, expire, TTL" },
+    { "type": "PTR",   "description": "Reverse DNS (IP → name)",         "example": "46.80.250.142.in-addr.arpa → google.com" },
+    { "type": "SRV",   "description": "Service location record",         "example": "_http._tcp.example.com → server:port" }
+  ],
+  "resolutionFlow": [
+    "Browser cache check",
+    "OS cache / /etc/hosts",
+    "Recursive resolver (ISP or 8.8.8.8)",
+    "Root nameserver (13 clusters: a-m.root-servers.net)",
+    "TLD nameserver (.com, .org, .net)",
+    "Authoritative nameserver (returns actual IP)",
+    "Response cached per TTL value"
+  ],
+  "keyFacts": [
+    "13 root server clusters worldwide (a-m.root-servers.net)",
+    "TTL controls how long records are cached",
+    "DNS uses UDP port 53 for queries, TCP for large responses",
+    "DNSSEC adds cryptographic signatures to prevent poisoning",
+    "DoH (DNS over HTTPS) encrypts DNS on port 443",
+    "DoT (DNS over TLS) encrypts DNS on port 853",
+    "Negative caching: NXDOMAIN responses also cached"
+  ],
+  "children": ["dns-resolution-flow","dns-security","dnssec","doh-dot"],
+  "parent": "layer7-application",
+  "dependsOn": ["udp","tcp","ip"],
+  "usedBy": ["browser","email","cdn","load-balancer"],
+  "relatedConcepts": ["http","dhcp","cdn-routing"],
+  "cybersecurity": {
+    "attacks": ["dns-poisoning","dns-amplification","dns-tunneling","dns-hijacking","nxdomain-attack"],
+    "defenses": ["dnssec","doh","dot","dns-monitoring","rpz"]
+  },
+  "visualization": { "color": "#00ddff", "icon": "📖", "nodeType": "expandable" }
+}

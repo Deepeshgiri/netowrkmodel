@@ -1,0 +1,38 @@
+{
+  "id": "dns-poisoning",
+  "title": "DNS Cache Poisoning",
+  "shortName": "DNS Poison",
+  "type": "attack",
+  "osiLayer": 7,
+  "category": "spoofing",
+  "severity": "critical",
+  "description": "Injecting malicious DNS records into a resolver's cache to redirect users to attacker-controlled servers.",
+  "fullExplanation": "DNS resolvers cache responses to reduce latency. If an attacker can inject a fake DNS response before the legitimate one arrives, the resolver caches the malicious record. All users of that resolver are then redirected to the attacker's IP — even though they typed the correct domain name. The Kaminsky attack (2008) made this practical by exploiting the predictable transaction IDs and source ports in DNS.",
+  "attackSteps": [
+    { "step": 1, "action": "Attacker triggers resolver to query target domain", "description": "Send request for victim.com to target resolver" },
+    { "step": 2, "action": "Race to respond before legitimate authoritative NS", "description": "Flood resolver with fake responses guessing 16-bit transaction ID" },
+    { "step": 3, "action": "Fake response accepted if transaction ID matches",   "description": "Probability: 1/65536 per attempt. Send thousands simultaneously." },
+    { "step": 4, "action": "Malicious A record cached",                         "description": "victim.com → attacker's IP, cached for TTL duration" },
+    { "step": 5, "action": "All users redirected to attacker's server",          "description": "Attacker serves fake site, steals credentials, delivers malware" }
+  ],
+  "kaminskySolution": "Randomize source port (adds 16 bits of entropy: 65536 × 65536 = 4 billion combinations). Patched in 2008.",
+  "keyFacts": [
+    "Kaminsky attack (2008): exploited predictable DNS transaction IDs",
+    "Fix: randomize source port — adds 16 bits of entropy",
+    "DNSSEC: cryptographically signs DNS records — prevents poisoning",
+    "DNS over HTTPS (DoH): encrypts queries, prevents interception",
+    "Bailiwick checking: resolver only accepts records for queried domain",
+    "0x20 encoding: randomize case in query, verify same case in response"
+  ],
+  "defenses": [
+    { "name": "DNSSEC",           "description": "Cryptographic signatures on DNS records. Resolver verifies signature chain from root." },
+    { "name": "DNS over HTTPS",   "description": "Encrypts DNS queries in HTTPS — prevents interception and injection." },
+    { "name": "DNS over TLS",     "description": "Encrypts DNS on port 853." },
+    { "name": "Source Port Randomization", "description": "Randomize UDP source port — adds 16 bits of entropy." },
+    { "name": "0x20 Encoding",    "description": "Randomize query case — response must match exact case." },
+    { "name": "Short TTL Monitoring", "description": "Alert on unusually short TTL values (attacker wants cache to expire quickly)." }
+  ],
+  "parent": "attacks",
+  "relatedConcepts": ["dns","dnssec","doh","mitm","phishing"],
+  "visualization": { "color": "#ff3366", "icon": "🎭", "nodeType": "expandable" }
+}

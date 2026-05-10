@@ -1,0 +1,44 @@
+{
+  "id": "ospf",
+  "title": "Open Shortest Path First",
+  "shortName": "OSPF",
+  "type": "protocol",
+  "osiLayer": 3,
+  "tcpIpLayer": "Internet",
+  "category": "routing_protocol",
+  "port": null,
+  "ipProtocol": 89,
+  "description": "Link-state IGP that uses Dijkstra's algorithm to find shortest paths within an autonomous system.",
+  "fullExplanation": "OSPF routers form adjacencies by exchanging Hello packets. They flood LSAs (Link State Advertisements) to build an identical LSDB (Link State Database) across all routers in an area. Each router independently runs Dijkstra's SPF algorithm to compute the shortest path tree. Area 0 is the backbone — all other areas must connect to it. DR/BDR election on multi-access networks reduces LSA flooding.",
+  "packetTypes": [
+    { "type": 1, "name": "Hello",      "description": "Discover and maintain neighbors. Sent every 10s (30s on NBMA)." },
+    { "type": 2, "name": "DBD",        "description": "Database Description — summary of LSDB for initial sync." },
+    { "type": 3, "name": "LSR",        "description": "Link State Request — request specific LSAs." },
+    { "type": 4, "name": "LSU",        "description": "Link State Update — contains actual LSAs." },
+    { "type": 5, "name": "LSAck",      "description": "Link State Acknowledgement — confirms LSU receipt." }
+  ],
+  "lsaTypes": [
+    { "type": 1, "name": "Router LSA",      "description": "Each router's links and costs. Flooded within area." },
+    { "type": 2, "name": "Network LSA",     "description": "DR generates for multi-access networks." },
+    { "type": 3, "name": "Summary LSA",     "description": "ABR advertises inter-area routes." },
+    { "type": 5, "name": "AS External LSA", "description": "ASBR advertises external routes (redistributed)." }
+  ],
+  "keyFacts": [
+    "Cost = 100 Mbps / interface bandwidth (reference bandwidth)",
+    "Hello interval: 10s (30s on NBMA networks)",
+    "Dead interval: 4 × hello interval",
+    "DR/BDR elected by highest priority (default 1), then highest Router ID",
+    "OSPFv2: IPv4 only. OSPFv3: IPv6 (and IPv4 with address families)",
+    "OSPF areas reduce LSA flooding and SPF computation",
+    "Stub area: no external LSAs. Totally stubby: no external or inter-area LSAs"
+  ],
+  "children": ["ospf-areas","ospf-adjacency","ospf-lsa","dr-bdr-election"],
+  "parent": "layer3-network",
+  "dependsOn": ["ip"],
+  "relatedConcepts": ["bgp","routing","eigrp","rip"],
+  "cybersecurity": {
+    "attacks": ["ospf-neighbor-spoofing","lsa-flooding","ospf-route-injection"],
+    "defenses": ["ospf-authentication","md5-authentication","ipsec-ospf"]
+  },
+  "visualization": { "color": "#00d4ff", "icon": "🕸️", "nodeType": "expandable" }
+}

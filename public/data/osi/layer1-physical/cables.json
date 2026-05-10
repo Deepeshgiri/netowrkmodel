@@ -1,0 +1,29 @@
+{
+  "id": "cables",
+  "title": "Network Cables (UTP/STP/Coax)",
+  "shortName": "Cables",
+  "type": "hardware",
+  "osiLayer": 1,
+  "category": "physical_media",
+  "description": "Copper-based cables that carry electrical signals representing network data.",
+  "fullExplanation": "Twisted pair cables use pairs of copper wires twisted together to cancel electromagnetic interference (EMI). The twisting causes noise picked up by both wires to cancel out (common-mode rejection). UTP (Unshielded Twisted Pair) is the most common. STP (Shielded Twisted Pair) adds a foil shield for noisy environments. Coaxial cable has a central conductor surrounded by insulation and a braided shield — used in cable TV and older Ethernet (10BASE2).",
+  "types": [
+    { "name": "Cat5e", "speed": "1 Gbps",  "distance": "100m", "frequency": "100 MHz",  "use": "Basic LAN" },
+    { "name": "Cat6",  "speed": "10 Gbps", "distance": "55m",  "frequency": "250 MHz",  "use": "Modern LAN" },
+    { "name": "Cat6A", "speed": "10 Gbps", "distance": "100m", "frequency": "500 MHz",  "use": "Data centers" },
+    { "name": "Cat7",  "speed": "10 Gbps", "distance": "100m", "frequency": "600 MHz",  "use": "Industrial" },
+    { "name": "Cat8",  "speed": "40 Gbps", "distance": "30m",  "frequency": "2000 MHz", "use": "Data center top-of-rack" }
+  ],
+  "keyFacts": [
+    "Twisting cancels electromagnetic interference",
+    "Maximum segment length: 100m for most categories",
+    "T568A and T568B are the two wiring standards",
+    "Auto-MDIX eliminates need for crossover cables",
+    "PoE (Power over Ethernet) delivers up to 90W over Cat5e+",
+    "Plenum-rated cables required in air ducts (fire safety)"
+  ],
+  "children": ["rj45-connector","signal-encoding","poe"],
+  "parent": "layer1-physical",
+  "relatedConcepts": ["signals","ethernet","nic"],
+  "visualization": { "color": "#ff6b35", "icon": "🔌", "nodeType": "expandable" }
+}

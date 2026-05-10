@@ -1,0 +1,33 @@
+{
+  "id": "wireless",
+  "title": "Wireless / WiFi (802.11)",
+  "shortName": "WiFi",
+  "type": "protocol",
+  "osiLayer": 1,
+  "category": "wireless_technology",
+  "description": "Radio frequency transmission for wireless local area networks.",
+  "fullExplanation": "WiFi uses radio waves in the 2.4GHz, 5GHz, and 6GHz bands. Data is encoded using OFDM (Orthogonal Frequency Division Multiplexing) which splits the channel into many narrow subcarriers. Higher QAM (Quadrature Amplitude Modulation) orders encode more bits per symbol but require better signal quality. MIMO (Multiple Input Multiple Output) uses multiple antennas to increase throughput via spatial multiplexing.",
+  "standards": [
+    { "name": "WiFi 4", "standard": "802.11n",  "maxSpeed": "600 Mbps",  "bands": "2.4/5 GHz",     "year": 2009 },
+    { "name": "WiFi 5", "standard": "802.11ac", "maxSpeed": "3.5 Gbps",  "bands": "5 GHz",          "year": 2013 },
+    { "name": "WiFi 6", "standard": "802.11ax", "maxSpeed": "9.6 Gbps",  "bands": "2.4/5 GHz",     "year": 2019 },
+    { "name": "WiFi 6E","standard": "802.11ax", "maxSpeed": "9.6 Gbps",  "bands": "2.4/5/6 GHz",   "year": 2021 },
+    { "name": "WiFi 7", "standard": "802.11be", "maxSpeed": "46 Gbps",   "bands": "2.4/5/6 GHz",   "year": 2024 }
+  ],
+  "keyFacts": [
+    "2.4GHz: longer range, more interference, 3 non-overlapping channels",
+    "5GHz: shorter range, less interference, 24 non-overlapping channels",
+    "6GHz (WiFi 6E): 59 channels, minimal interference",
+    "OFDMA in WiFi 6 allows multiple users per channel simultaneously",
+    "WPA3 uses SAE (Simultaneous Authentication of Equals)",
+    "Hidden SSID provides no real security — easily discovered"
+  ],
+  "children": ["wifi-security","ofdm-modulation","wifi-channels","wifi-hardware"],
+  "parent": "layer1-physical",
+  "cybersecurity": {
+    "attacks": ["evil-twin","deauth-attack","wpa2-cracking","krack"],
+    "defenses": ["wpa3","802.1x","wireless-ids"]
+  },
+  "relatedConcepts": ["modulation","signals","wireless-hardware"],
+  "visualization": { "color": "#ff5533", "icon": "📶", "nodeType": "expandable" }
+}

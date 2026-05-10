@@ -1,0 +1,46 @@
+{
+  "id": "nmap",
+  "title": "Nmap",
+  "shortName": "Nmap",
+  "type": "tool",
+  "category": "network_scanning",
+  "description": "Network mapper — the most powerful open-source tool for network discovery and security auditing.",
+  "fullExplanation": "Nmap sends crafted packets and analyzes responses to discover hosts, open ports, running services, OS versions, and vulnerabilities. It uses raw sockets (requires root/admin). The Nmap Scripting Engine (NSE) extends functionality with Lua scripts for vulnerability detection, exploitation, and more.",
+  "scanTypes": [
+    { "flag": "-sS", "name": "SYN Scan (Stealth)",  "description": "Sends SYN, waits for SYN-ACK (open) or RST (closed). Never completes handshake. Requires root. Most common.", "speed": "Fast" },
+    { "flag": "-sT", "name": "TCP Connect Scan",    "description": "Full TCP connect(). No root needed. Logged by target. Slower.", "speed": "Medium" },
+    { "flag": "-sU", "name": "UDP Scan",            "description": "Sends UDP packets. ICMP port unreachable = closed. No response = open|filtered. Very slow.", "speed": "Slow" },
+    { "flag": "-sN", "name": "NULL Scan",           "description": "No flags set. RST = closed. No response = open|filtered. Evades some firewalls.", "speed": "Medium" },
+    { "flag": "-sF", "name": "FIN Scan",            "description": "FIN flag only. Same interpretation as NULL scan.", "speed": "Medium" },
+    { "flag": "-sX", "name": "Xmas Scan",           "description": "FIN+PSH+URG flags. Same interpretation. Named for lit-up flags.", "speed": "Medium" },
+    { "flag": "-sA", "name": "ACK Scan",            "description": "Maps firewall rules. RST = unfiltered. No response = filtered.", "speed": "Fast" },
+    { "flag": "-sV", "name": "Version Detection",   "description": "Probes open ports to determine service/version.", "speed": "Slow" },
+    { "flag": "-O",  "name": "OS Detection",        "description": "Analyzes TCP/IP stack behavior to guess OS.", "speed": "Medium" },
+    { "flag": "-A",  "name": "Aggressive",          "description": "Enables OS detection, version detection, script scanning, traceroute.", "speed": "Slow" }
+  ],
+  "usefulFlags": [
+    { "flag": "-p-",          "description": "Scan all 65535 ports" },
+    { "flag": "-p 22,80,443", "description": "Scan specific ports" },
+    { "flag": "--top-ports 100","description": "Scan 100 most common ports" },
+    { "flag": "-Pn",          "description": "Skip host discovery, treat all hosts as up" },
+    { "flag": "-T0 to -T5",   "description": "Timing: T0=paranoid, T3=normal, T5=insane" },
+    { "flag": "-oN file.txt", "description": "Save output in normal format" },
+    { "flag": "-oX file.xml", "description": "Save output in XML format" },
+    { "flag": "--script vuln", "description": "Run all vulnerability detection scripts" },
+    { "flag": "-D RND:10",    "description": "Use 10 random decoy IPs to obscure scan" },
+    { "flag": "--source-port 53","description": "Spoof source port (bypass some firewalls)" }
+  ],
+  "keyFacts": [
+    "SYN scan requires root/administrator privileges",
+    "NSE: Nmap Scripting Engine uses Lua language",
+    "Zenmap: official GUI for Nmap",
+    "masscan: faster than Nmap for large-scale scanning",
+    "Always get written permission before scanning",
+    "Nmap can fingerprint 2600+ OS versions",
+    "Default scan: top 1000 ports with SYN scan"
+  ],
+  "children": ["nmap-nse","nmap-os-detection","nmap-firewall-evasion"],
+  "parent": "tools",
+  "relatedConcepts": ["wireshark","reconnaissance","ports","tcp","udp"],
+  "visualization": { "color": "#ffcc00", "icon": "🗺️", "nodeType": "expandable" }
+}
